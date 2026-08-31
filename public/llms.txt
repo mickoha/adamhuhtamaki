@@ -1,0 +1,26 @@
+# [TÄYDENNÄ: Brändi]
+
+> [TÄYDENNÄ: yksi kappale, joka kertoo mitä yritys tekee, kenelle ja millä
+> alueella. Tämä on se teksti, jonka kielimalli lainaa, kun sitä kysytään —
+> kirjoita se kuin vastaisit suoraan kysymykseen "mikä on X?".]
+
+[TÄYDENNÄ: toinen kappale: miten palvelu käytännössä toimii ja miten aloitetaan.]
+
+## Mitä teemme
+
+- **[TÄYDENNÄ: palvelu]**: [TÄYDENNÄ: konkreettinen kuvaus — nimeä työkalut,
+  integraatiot ja lopputulokset, älä adjektiiveja.]
+- **[TÄYDENNÄ: palvelu]**: [TÄYDENNÄ]
+
+## Sivut
+
+- [Palvelut](https://example.fi/palvelut): [TÄYDENNÄ: mitä sivulta löytyy.]
+- [Ota yhteyttä](https://example.fi/yhteystiedot): [TÄYDENNÄ].
+
+## Yritys
+
+- Nimi: [TÄYDENNÄ: Yritys Oy]
+- Y-tunnus: [TÄYDENNÄ]
+- Toiminta-alue: Suomi
+- Verkkosivu: https://example.fi
+- Yhteydenotot: info@example.fi, +358 00 000 0000

@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Everything visual is a `site-*` token — restyling the whole
+ * site for a new brand means editing the values below, not hunting hex codes
+ * through components. Tailwind v4 generates the utilities automatically:
+ *   --color-site-accent  → bg-site-accent / text-site-accent / border-site-accent
+ *   --radius-site-lg     → rounded-site-lg
+ *   --shadow-site-card   → shadow-site-card
+ */
+
+/* Design-reference breakpoints (max-width, so they cascade downward). */
+@custom-variant max-md (@media (max-width: 980px));
+@custom-variant max-sm (@media (max-width: 620px));
+
+@theme {
+  /* ---- Brand ---- */
+  /* Primary: dark brand color — nav background, headings. */
+  --color-site-primary: #111463;
+  --color-site-primary-2: #1a1f7a;
+  /* Accent: the action color — buttons, links, icons, focus rings. */
+  --color-site-accent: #0f9ddf;
+  --color-site-accent-2: #0888c2;
+  --color-site-accent-soft: #eaf6fd;
+
+  /* ---- Surfaces ---- */
+  --color-site-canvas: #f4f6fb;
+  --color-site-surface: #ffffff;
+  --color-site-surface-2: #fafbfd;
+  --color-site-hover: #f4f6fb;
+
+  /* ---- Lines ---- */
+  --color-site-line: #e8eaf2;
+  --color-site-line-strong: #e2e5ee;
+  --color-site-divider: #f1f2f7;
+
+  /* ---- Text ---- */
+  --color-site-heading: #111463;
+  --color-site-body: #1f2937;
+  --color-site-muted: #4b5563;
+  --color-site-subtle: #6b7280;
+  --color-site-faint: #9ca3af;
+
+  /* ---- Status ---- */
+  --color-site-ok-bg: #ecfdf5;
+  --color-site-ok-fg: #047857;
+  --color-site-warn-bg: #fff7ed;
+  --color-site-warn-fg: #9a3412;
+  --color-site-danger: #b91c1c;
+  --color-site-danger-bg: #fef2f2;
+
+  /* ---- Radii ---- */
+  --radius-site-sm: 4px;
+  --radius-site: 6px;
+  --radius-site-md: 7px;
+  --radius-site-lg: 8px;
+  --radius-site-pill: 999px;
+
+  /* ---- Shadows ---- */
+  --shadow-site-card: 0 1px 0 rgba(17, 20, 99, 0.04), 0 2px 6px rgba(17, 20, 99, 0.04);
+  --shadow-site-pop: 0 12px 32px rgba(17, 20, 99, 0.12);
+  --shadow-site-modal: 0 24px 60px rgba(17, 20, 99, 0.18);
+
+  /* ---- Fonts (loaded in @/utils/fonts) ---- */
+  --font-sans: var(--font-sans-var), system-ui, sans-serif;
+  --font-mono: var(--font-mono-var), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-site-canvas);
+    color: var(--color-site-body);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* reCAPTCHA v3 badge: hidden, as allowed when the form shows the required
+     "Suojattu reCAPTCHA-palvelun avulla" notice (see ContactForm). */
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+}
+
+@layer components {
+  /* Scroll-reveal used with the useInView hook. */
+  .site-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .site-reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}

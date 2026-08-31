@@ -1,0 +1,12 @@
+# Apache config for the exported site. Copied into out/ by the build
+# (next-image-export-optimizer's last argument). Delete this file if you deploy
+# to Netlify/Vercel/Cloudflare instead — they use their own redirect config.
+
+# Force HTTPS + the canonical host (non-www) in a single 301.
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://example.fi/$1 [L,R=301]
+
+# Old URLs → new ones. Add a line per renamed page instead of letting it 404:
+# RewriteRule ^vanha-sivu/?$ /uusi-sivu/ [L,R=301]
