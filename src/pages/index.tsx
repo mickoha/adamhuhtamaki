@@ -9,17 +9,23 @@ import {
 import Nav from '@/components/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import CookieConsent from '@/components/CookieConsent';
+import EmergencyFab from '@/components/EmergencyFab';
 import Hero from '@/sections/Hero';
-import Features from '@/sections/Features';
+import EmergencyBand from '@/sections/EmergencyBand';
+import Audiences from '@/sections/Audiences';
+import Backdrop from '@/sections/Backdrop';
+import Specialities from '@/sections/Specialities';
+import Pricing from '@/sections/Pricing';
+import Attorney from '@/sections/Attorney';
 import Faq from '@/sections/Faq';
-import CTA from '@/sections/CTA';
+import Contact from '@/sections/Contact';
 
 export default function Home() {
   return (
     <>
       <SEO
-        title="[TÄYDENNÄ: hakusana ensin – Brändi]"
-        description="[TÄYDENNÄ: 150–160 merkkiä, jotka vastaavat suoraan siihen mitä hakija etsii, ja päättyvät toimintakehotukseen.]"
+        title="Rikosoikeuteen erikoistunut asianajotoimisto | Helsinki"
+        description="Tarvitsetko apua rikosasiassa? Asianajotoimisto Adam Huhtamäki palvelee pääkaupunkiseudulla ja valtakunnallisesti. Rikospäivystys 24/7. Ensimmäinen puhelu 0 €."
         url={`${SITE_URL}/`}
       >
         <JsonLd data={organizationSchema} />
@@ -29,11 +35,19 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Features />
+        <EmergencyBand />
+        <Audiences />
+        {/* One decorative layer spans both sections — see Backdrop. */}
+        <Backdrop>
+          <Specialities />
+          <Pricing />
+        </Backdrop>
+        <Attorney />
         <Faq />
-        <CTA />
+        <Contact />
       </main>
       <SiteFooter />
+      <EmergencyFab />
       <CookieConsent />
     </>
   );

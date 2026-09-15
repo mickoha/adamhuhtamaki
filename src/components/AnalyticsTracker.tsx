@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { trackEvent } from '@/utils/analytics';
+import { useEffect, useRef } from 'react';
+import { trackEvent, setContentGroup } from '@/utils/analytics';
 
 /**
  * Site-wide behavioral tracking, mounted once in _app. Everything works by
@@ -16,10 +16,27 @@ import { trackEvent } from '@/utils/analytics';
  *                    ancestor (nav, drawer, footer, hero, …)
  *    - cta_label:    the element's own label (finest grain)
  *
+ * 3. Leads — a tel: click also fires `generate_lead` with method 'phone'.
+ *    On this site the phone is the conversion the whole page argues for; the
+ *    form is the secondary route. Counting only form submits would report the
+ *    smaller number as if it were the result.
+ * 4. Content grouping — content_group is set per route so the six content
+ *    pages can be compared as groups rather than read as a flat page list.
+ *
  * All events are consent-gated inside trackEvent — no ga_ cookie, no events.
  */
 const AnalyticsTracker = () => {
   const router = useRouter();
+  // One lead per page view. A visitor who taps the number twice, or taps it in
+  // the header and again in the footer, is still one lead — without this the
+  // conversion count inflates on exactly the pages that work best.
+  const leadFired = useRef(false);
+
+  // Content group first: it must be set before GA's automatic page_view fires.
+  useEffect(() => {
+    setContentGroup(router.asPath);
+    leadFired.current = false;
+  }, [router.asPath]);
 
   // Section views — re-armed on every route change.
   useEffect(() => {
@@ -83,6 +100,10 @@ const AnalyticsTracker = () => {
 
       if (type === 'phone') {
         trackEvent('phone_click', { link_url: href, cta_location: location });
+        if (!leadFired.current) {
+          leadFired.current = true;
+          trackEvent('generate_lead', { method: 'phone', cta_location: location });
+        }
       } else if (type === 'email') {
         trackEvent('email_click', { link_url: href, cta_location: location });
       }

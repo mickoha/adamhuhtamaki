@@ -2,85 +2,68 @@ import React, { useRef, useState } from 'react';
 import Recaptcha, { ReCAPTCHA } from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import { trackEvent } from '@/utils/analytics';
+import {
+  MATTER_TYPES as DEFAULT_MATTER_TYPES,
+  URGENCY_LEVELS as DEFAULT_URGENCY_LEVELS,
+} from '@/data/services';
+
+interface ContactFormProps {
+  /** Per-page option lists; the service pages use their own. */
+  matterTypes?: string[];
+  urgencyLevels?: string[];
+  /** The civil page asks the nature and stage of a dispute instead. */
+  matterLabel?: string;
+  urgencyLabel?: string;
+  notice?: string;
+  /**
+   * The form card's ground. Defaults to the dark card used inside the
+   * <Contact> band, whose section ground is a gradient up to #292b31. On the
+   * yhteystiedot page the section ground IS the page, so the card has to step
+   * UP to the surface tone or it disappears into it.
+   */
+  surface?: string;
+}
 
 /**
  * EmailJS contact form with invisible reCAPTCHA v3.
  *
  * Setup (see .env.example):
  *  1. dashboard.emailjs.com → add an email service, then a template whose
- *     variables are: {{name}}, {{email}}, {{number}}, {{message}}.
+ *     variables are: {{name}}, {{email}}, {{number}}, {{matter}},
+ *     {{urgency}}, {{matter_label}}, {{urgency_label}}, {{message}}.
  *  2. google.com/recaptcha → v3 site key for your domain + localhost.
  *  3. Fill NEXT_PUBLIC_EMAIL_* and NEXT_PUBLIC_RECAPTCHA_SITE_KEY in .env.local.
  *
  * There is no backend: the send happens straight from the browser with the
  * publishable EmailJS key. Enable EmailJS's own reCAPTCHA verification in the
  * template settings so the token below is actually checked server-side.
+ *
+ * No file uploads, by design — the fine print tells visitors not to send
+ * confidential detail through the form, so the form must not invite it.
  */
 
 type SendState = 'notSent' | 'waiting' | 'sent';
 
-interface FieldProps {
-  id: string;
-  label: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  type?: string;
-  required?: boolean;
-  multiline?: boolean;
-}
+export default function ContactForm({
+  matterTypes: MATTER_TYPES = DEFAULT_MATTER_TYPES,
+  urgencyLevels: URGENCY_LEVELS = DEFAULT_URGENCY_LEVELS,
+  matterLabel = 'Asian laatu',
+  urgencyLabel = 'Kiireellisyys',
+  notice = 'Älä kirjoita lomakkeelle salassa pidettävää tai arkaluonteista tietoa. Kiireellisissä asioissa soita päivystysnumeroon.',
+  surface = 'bg-site-bg',
+}: ContactFormProps) {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [matter, setMatter] = useState(MATTER_TYPES[0]);
+  const [urgency, setUrgency] = useState(URGENCY_LEVELS[0]);
+  const [message, setMessage] = useState('');
 
-const inputCls =
-  'w-full rounded-site-md border border-site-line-strong bg-white px-[12px] py-[10px] text-[13.5px] text-site-body outline-none transition-[border-color,box-shadow] duration-150 focus:border-site-accent focus:shadow-[0_0_0_3px_rgba(15,157,223,0.18)]';
-
-function Field({
-  id,
-  label,
-  name,
-  value,
-  onChange,
-  type = 'text',
-  required,
-  multiline,
-}: FieldProps) {
-  return (
-    <div className="flex flex-col gap-[6px]">
-      <label htmlFor={id} className="text-[12px] font-medium text-site-muted">
-        {label}
-      </label>
-      {multiline ? (
-        <textarea
-          id={id}
-          name={name}
-          value={value}
-          onChange={onChange}
-          required={required}
-          className={`${inputCls} min-h-[90px] resize-y`}
-        />
-      ) : (
-        <input
-          id={id}
-          name={name}
-          type={type}
-          value={value}
-          onChange={onChange}
-          required={required}
-          className={inputCls}
-        />
-      )}
-    </div>
-  );
-}
-
-export default function ContactForm() {
-  const [messageValue, setMessageValue] = useState('');
-  const [nameValue, setNameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
-  const [numberValue, setNumberValue] = useState('');
   const [sendState, setSendState] = useState<SendState>('notSent');
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [contactMissing, setContactMissing] = useState(false);
   // reCAPTCHA pulls a ~120 kB third-party chain (api.js → CSS → font) on every
   // page that renders this form. Mount it only once the visitor touches the
   // form, so idle visitors never pay for it.
@@ -108,14 +91,25 @@ export default function ContactForm() {
   };
 
   const setEmptyValues = () => {
-    setMessageValue('');
-    setNameValue('');
-    setEmailValue('');
-    setNumberValue('');
+    setName('');
+    setPhone('');
+    setEmail('');
+    setMatter(MATTER_TYPES[0]);
+    setUrgency(URGENCY_LEVELS[0]);
+    setMessage('');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // One of the two ways back to the sender is required — a lead with neither
+    // is unusable, and the browser cannot express "either/or" on its own.
+    if (!phone.trim() && !email.trim()) {
+      setContactMissing(true);
+      return;
+    }
+    setContactMissing(false);
+
     setSendState('waiting');
     setButtonDisabled(true);
     trackEvent('contact_form_submit');
@@ -141,11 +135,18 @@ export default function ContactForm() {
         return;
       }
 
+      // matter and urgency are their own variables so the EmailJS template can
+      // put them in the subject line, where they are read before opening. The
+      // labels travel with them because the civil pages ask different things.
       const formData = {
-        name: nameValue,
-        email: emailValue,
-        number: numberValue,
-        message: messageValue,
+        name,
+        email,
+        number: phone,
+        matter,
+        urgency,
+        matter_label: matterLabel,
+        urgency_label: urgencyLabel,
+        message,
         'g-recaptcha-response': token,
       };
 
@@ -153,7 +154,7 @@ export default function ContactForm() {
         process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID!,
         formData,
-        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_ID!
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_ID!,
       );
 
       trackEvent('generate_lead', { method: 'contact_form' });
@@ -177,29 +178,32 @@ export default function ContactForm() {
       return (
         <span
           aria-label="Lähetetään"
-          className="h-[18px] w-[18px] animate-spin rounded-full border-2 border-white/40 border-t-white"
+          className="h-[18px] w-[18px] animate-spin rounded-full border-2 border-site-accent/40 border-t-site-accent"
         />
       );
     }
     if (sendState === 'sent') {
       return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          aria-hidden="true"
+        >
           <path d="M4 12l5 5L20 6" />
         </svg>
       );
     }
-    return (
-      <>
-        Lähetä viesti
-        <span className="ml-[2px] transition-transform duration-150 group-hover:translate-x-[2px]">
-          →
-        </span>
-      </>
-    );
+    return 'Lähetä yhteydenottopyyntö';
   };
 
   return (
-    <div className="relative z-[1]">
+    <div
+      className={`relative z-[1] rounded-site-lg ${surface} p-[38px_36px] shadow-site-md max-md:p-6`}
+    >
       {recaptchaWanted && (
         <Recaptcha
           sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
@@ -210,76 +214,139 @@ export default function ContactForm() {
       <form
         onSubmit={handleSubmit}
         onFocusCapture={handleFirstFocus}
-        className="flex flex-col gap-[14px]"
+        className="grid grid-cols-2 gap-[18px] max-md:grid-cols-1"
       >
-        <Field
-          id="cf-name"
-          label="Nimi *"
-          name="name"
-          required
-          value={nameValue}
-          onChange={(e) => setNameValue(e.target.value)}
-        />
-        <Field
-          id="cf-email"
-          label="Sähköposti *"
-          name="email"
-          type="email"
-          required
-          value={emailValue}
-          onChange={(e) => setEmailValue(e.target.value)}
-        />
-        <Field
-          id="cf-phone"
-          label="Puhelin"
-          name="number"
-          type="tel"
-          value={numberValue}
-          onChange={(e) => setNumberValue(e.target.value)}
-        />
-        <Field
-          id="cf-message"
-          label="Viesti *"
-          name="message"
-          required
-          multiline
-          value={messageValue}
-          onChange={(e) => setMessageValue(e.target.value)}
-        />
+        <div className="field">
+          <label htmlFor="cf-name">Nimi *</label>
+          <input
+            id="cf-name"
+            name="name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="input max-md:min-h-[46px]"
+          />
+        </div>
 
-        <div className="mt-[6px] flex flex-wrap items-center justify-between gap-4">
-          <button
-            type="submit"
-            disabled={buttonDisabled}
-            className="group inline-flex min-w-[150px] items-center justify-center gap-[6px] rounded-site-lg bg-site-accent px-[18px] py-[11px] text-[14px] font-semibold leading-none text-white transition-colors duration-150 hover:bg-site-accent-2 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-80"
+        <div className="field">
+          <label htmlFor="cf-phone">Puhelin</label>
+          <input
+            id="cf-phone"
+            name="number"
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="input max-md:min-h-[46px]"
+          />
+        </div>
+
+        <div className="field col-span-2 max-md:col-span-1">
+          <label htmlFor="cf-email">Sähköposti</label>
+          <input
+            id="cf-email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="input max-md:min-h-[46px]"
+          />
+        </div>
+
+        <div className="field col-span-2 max-md:col-span-1">
+          <label htmlFor="cf-matter">{matterLabel}</label>
+          <select
+            id="cf-matter"
+            name="matter"
+            value={matter}
+            onChange={(e) => setMatter(e.target.value)}
+            className="input max-md:min-h-[46px]"
           >
-            {buttonInner()}
-          </button>
+            {MATTER_TYPES.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          {showSuccess ? (
-            <p className="max-w-[280px] text-[12px] text-site-ok-fg">
-              Kiitos viestistäsi! Olemme vastaanottaneet sen ja palaamme sinulle
-              mahdollisimman pian.
+        <fieldset className="col-span-2 border-0 p-0 max-md:col-span-1">
+          <legend className="mb-[7px] p-0 text-[12px] text-site-text/70">
+            {urgencyLabel}
+          </legend>
+          <div className="flex flex-wrap gap-x-6 gap-y-3 max-md:flex-col max-md:gap-y-[10px]">
+            {URGENCY_LEVELS.map((level) => (
+              <label key={level} className="radio">
+                <input
+                  type="radio"
+                  name="urgency"
+                  value={level}
+                  checked={urgency === level}
+                  onChange={() => setUrgency(level)}
+                />
+                <span className="dot" />
+                {level}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="field col-span-2 max-md:col-span-1">
+          <label htmlFor="cf-message">Lyhyt kuvaus</label>
+          <textarea
+            id="cf-message"
+            name="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Mistä on kysymys ja missä vaiheessa asia on"
+            className="input min-h-[90px]"
+          />
+        </div>
+
+        <p className="col-span-2 text-[12.5px] leading-[1.6] text-site-neutral-500 max-md:col-span-1">
+          {notice}
+        </p>
+
+        <button
+          type="submit"
+          disabled={buttonDisabled}
+          className="btn btn-primary col-span-2 w-full px-[22px] py-[13px] text-[15px] max-md:col-span-1 max-md:min-h-[46px]"
+        >
+          {buttonInner()}
+        </button>
+
+        <div className="col-span-2 max-md:col-span-1">
+          {contactMissing && (
+            <p className="text-[12.5px] text-site-danger">
+              Jätä puhelinnumero tai sähköposti, jotta voin vastata sinulle.
             </p>
-          ) : showError ? (
-            <p className="max-w-[280px] text-[12px] text-site-danger">
-              Viestin lähettämisessä tapahtui virhe. Yritä uudelleen tai ota
-              yhteyttä suoraan sähköpostitse tai puhelimitse.
+          )}
+          {showSuccess && (
+            <p className="text-[12.5px] text-site-ok-fg">
+              Kiitos. Yhteydenottopyyntö on perillä, ja otan sinuun yhteyttä
+              mahdollisimman pian. Kiireellisessä asiassa soita
+              päivystysnumeroon.
             </p>
-          ) : (
+          )}
+          {showError && (
+            <p className="text-[12.5px] text-site-danger">
+              Viestin lähettämisessä tapahtui virhe. Yritä uudelleen tai soita
+              päivystysnumeroon.
+            </p>
+          )}
+          {!contactMissing && !showSuccess && !showError && (
             /* Required notice when the reCAPTCHA badge is hidden in CSS. */
-            <p className="max-w-[220px] text-[11px] leading-[1.5] text-site-subtle">
+            <p className="text-[11.5px] leading-[1.5] text-site-neutral-600">
               Suojattu reCAPTCHA-palvelun avulla.{' '}
               <a
                 href="https://policies.google.com/privacy?hl=fi"
-                className="underline hover:text-site-accent"
+                className="underline transition-colors hover:text-site-accent"
               >
                 Tietosuojakäytäntö
               </a>{' '}
               &amp;{' '}
               <a
                 href="https://policies.google.com/terms?hl=fi"
-                className="underline hover:text-site-accent"
+                className="underline transition-colors hover:text-site-accent"
               >
                 palveluehdot
               </a>

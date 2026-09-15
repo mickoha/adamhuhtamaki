@@ -2,7 +2,17 @@ import next from 'eslint-config-next/core-web-vitals';
 
 const config = [
   ...next,
-  { ignores: ['.next/**', 'out/**', 'node_modules/**', 'next-env.d.ts'] },
+  {
+    // .claude/design holds the delivered design prototypes and their runtime.
+    // They are reference material, not shipped code — never lint them.
+    ignores: [
+      '.next/**',
+      'out/**',
+      'node_modules/**',
+      'next-env.d.ts',
+      '.claude/**',
+    ],
+  },
   {
     rules: {
       /**

@@ -1,0 +1,64 @@
+# Apache config for the exported site — THE master copy.
+#
+# This file lives at the repo root, not in public/, so that it is edited in one
+# obvious place and is not mistaken for a static asset. `scripts/copy-htaccess.mjs`
+# copies it into out/ during postbuild. Do not put a second copy in public/:
+# Next copies public/ into out/ automatically, and whichever ran last would win.
+#
+# Delete this file (and the postbuild step) if you deploy to
+# Netlify/Vercel/Cloudflare instead — they use their own redirect config.
+
+RewriteEngine On
+
+# Let the ACME validation through before any redirect. Let's Encrypt fetches
+# http://<the exact hostname>/.well-known/acme-challenge/<token> over PLAIN
+# HTTP; without this it would be 301'd to the canonical host below, which does
+# not hold the token, and both issuance and every 90-day renewal would fail.
+# Covers the whole /.well-known/ tree, so security.txt et al. work too.
+RewriteRule ^\.well-known/ - [L]
+
+# ---------------------------------------------------------------------------
+# Canonical host + HTTPS, in a single 301.
+#
+# THIS IS THE ONE LINE TO CHANGE WHEN GOING LIVE:
+#   test.adamhuhtamaki.fi  ->  adamhuhtamaki.fi
+#
+# It is the test host on purpose. Nothing else in the build points here —
+# SITE.url in src/data/site.ts stays on the production domain so canonical
+# tags, JSON-LD and sitemap.xml keep naming the real address even while the
+# files are served from the test subdomain. That is what stops the test copy
+# from competing with production in search.
+#
+# `www` must be on the production TLS certificate even though it is redirected
+# away here: the handshake completes before the browser ever sees this 301.
+# ---------------------------------------------------------------------------
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://test.adamhuhtamaki.fi/$1 [L,R=301]
+
+# ---------------------------------------------------------------------------
+# Keep the test environment out of search engines.
+#
+# A full copy of the site on a subdomain of the production domain is duplicate
+# content, and robots.txt does NOT prevent indexing — it only asks crawlers not
+# to fetch, and an unfetched URL can still be listed. X-Robots-Tag is the
+# header that actually removes it, and being a header it also covers images,
+# sitemap.xml and anything else with no HTML to carry a meta tag.
+#
+# Guarded by hostname rather than commented out, so it disables ITSELF the day
+# the files are served from adamhuhtamaki.fi. Do not "simplify" this into an
+# unconditional header: forgetting to remove it on launch would deindex the
+# real site, which is a far worse failure than an indexed test copy.
+#
+# Verify after deploy — silence here means the modules are missing:
+#   curl -I https://test.adamhuhtamaki.fi/ | grep -i x-robots-tag
+# ---------------------------------------------------------------------------
+<IfModule mod_setenvif.c>
+  SetEnvIf Host "^(test|testaus|staging|dev)\." SITE_IS_TEST=1
+</IfModule>
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow" env=SITE_IS_TEST
+</IfModule>
+
+# Old URLs → new ones. Add a line per renamed page instead of letting it 404:
+# RewriteRule ^vanha-sivu/?$ /uusi-sivu/ [L,R=301]

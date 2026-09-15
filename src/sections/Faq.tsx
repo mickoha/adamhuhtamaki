@@ -1,111 +1,91 @@
-import { ReactNode, useState } from 'react';
-import Wrap from '@/components/Wrap';
 import Eyebrow from '@/components/Eyebrow';
-import { FAQ, type FaqItem } from '@/data/faq';
+import ImageComponent from '@/components/ImageComponent';
+import { FAQ } from '@/data/faq';
+import ukk from '@images/ukk.jpg';
 import { trackEvent } from '@/utils/analytics';
 
-interface FaqProps {
-  /** Defaults to the shared FAQ; pass a page-specific list for subpages. */
-  items?: FaqItem[];
-  eyebrow?: string;
-  title?: ReactNode;
-  lead?: string;
-  id?: string;
-}
-
 /**
- * FAQ accordion. Render the matching FAQPage JSON-LD from the SAME array
- * (faqPageSchemaFrom in @/data/schema) — schema that does not match the
- * visible text is ignored by search engines.
+ * The photograph is pinned to the top 620px of the band rather than filling
+ * it, so opening an answer lengthens the section without stretching the image.
+ * A fade strip dissolves its bottom edge into the page ground.
+ *
+ * The questions live in @/data/faq so the FAQPage JSON-LD is generated from
+ * the same array this renders — schema that does not match the visible text is
+ * ignored by search and answer engines alike.
  */
-export default function Faq({
-  items = FAQ,
-  eyebrow = 'Usein kysyttyä',
-  title = 'Kysymyksiä? Tässä vastauksia.',
-  lead = 'Et löytänyt etsimääsi? Kysy meiltä suoraan – vastaamme arkipäivän sisällä.',
-  id = 'ukk',
-}: FaqProps) {
-  const [open, setOpen] = useState<number | null>(null);
-
-  const toggle = (i: number) => {
-    setOpen((cur) => {
-      const next = cur === i ? null : i;
-      if (next === i) {
-        trackEvent('faq_open', { faq_question: items[i].q.slice(0, 100) });
-      }
-      return next;
-    });
-  };
-
+export default function Faq() {
   return (
     <section
-      id={id}
-      data-track-section={id}
-      className="border-y border-site-line bg-white py-24 max-md:py-16"
+      id="ukk"
+      data-track-section="ukk"
+      className="relative scroll-mt-[90px] overflow-hidden border-y border-site-divider max-md:scroll-mt-[76px] px-[56px] pb-28 pt-[104px] max-md:px-5 max-md:pb-12 max-md:pt-12"
     >
-      <Wrap>
-        <div className="grid grid-cols-[0.8fr_1.1fr] items-start gap-16 max-md:grid-cols-1 max-md:gap-8">
-          <div>
-            <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="mt-3 text-[clamp(28px,3vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] text-site-primary">
-              {title}
-            </h2>
-            <p className="mt-3 max-w-[360px] text-[16px] leading-[1.65] text-site-muted">
-              {lead}
-            </p>
-            <a
-              href="#yhteys"
-              data-track-click="faq_ota_yhteytta"
-              className="group mt-6 inline-flex items-center gap-[8px] text-[13.5px] font-semibold text-site-accent"
-            >
-              Ota yhteyttä
-              <span className="transition-transform duration-150 group-hover:translate-x-[2px]">
-                →
-              </span>
-            </a>
-          </div>
-
-          <div className="flex flex-col border-t border-site-line">
-            {items.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={item.q} className="border-b border-site-line">
-                  <button
-                    type="button"
-                    onClick={() => toggle(i)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-5 px-1 py-[22px] text-left text-[16px] font-semibold tracking-[-0.01em] text-site-primary transition-colors hover:text-site-accent"
-                  >
-                    {item.q}
-                    <span
-                      className={`grid h-[26px] w-[26px] flex-shrink-0 place-items-center rounded-full border transition-[transform,border-color,color] duration-[250ms] ${
-                        isOpen
-                          ? 'rotate-45 border-site-accent text-site-accent'
-                          : 'border-site-line-strong text-site-subtle'
-                      }`}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                        <path d="M12 5v14M5 12h14" />
-                      </svg>
-                    </span>
-                  </button>
-                  {/* Answers stay in the DOM when collapsed so crawlers and
-                      answer engines can read them without a click. */}
-                  <div
-                    className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-                      isOpen ? 'max-h-[500px]' : 'max-h-0'
-                    }`}
-                  >
-                    <p className="max-w-[600px] px-1 pb-[22px] text-[14px] leading-[1.65] text-site-muted">
-                      {item.a}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[620px] max-md:h-[420px]"
+      >
+        <div className="relative h-full">
+          <ImageComponent
+            src={ukk}
+            alt="Kaksi kättä vastakkain vankilan tapaamishuoneen lasin eri puolilla"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
-      </Wrap>
+        <div className="absolute inset-0 bg-[linear-gradient(85deg,rgba(22,24,38,0.96)_0%,rgba(22,24,38,0.62)_100%)] max-md:bg-[linear-gradient(to_bottom,rgba(22,24,38,0.82)_0%,#161826_100%)]" />
+        <div className="absolute inset-x-0 top-[380px] h-[240px] bg-[linear-gradient(to_bottom,rgba(22,24,38,0),#161826)] max-md:top-[240px] max-md:h-[180px]" />
+      </div>
+
+      <div className="relative grid mx-auto w-full max-w-[1400px] grid-cols-[0.8fr_1.2fr] gap-[72px] max-md:grid-cols-1 max-md:gap-8">
+        <div>
+          <Eyebrow>UKK</Eyebrow>
+          <h2 className="mt-4 max-w-[18ch] text-[38px] leading-[1.1] tracking-[-0.02em] max-md:text-[27px] max-md:leading-[1.12]">
+            Usein kysytyt kysymykset rikosasioista.
+          </h2>
+          <p className="mt-5 max-w-[42ch] text-[17px] leading-[1.65] text-site-neutral-300 max-md:text-[15.5px]">
+            Jos oma tilanteesi ei ole listalla, soita. Vastaan nopeammin
+            puhelimessa kuin verkkolomakkeella.
+          </p>
+        </div>
+
+        <div>
+          {FAQ.map((item, i) => (
+            <details
+              key={item.q}
+              className={`site-details border-b border-site-divider py-[22px] ${
+                i === 0 ? 'border-t' : ''
+              }`}
+              onToggle={(e) => {
+                if (e.currentTarget.open) {
+                  trackEvent('faq_open', { faq_question: item.q });
+                }
+              }}
+            >
+              <summary className="flex items-start justify-between gap-6 text-[19px] leading-[1.3] max-md:text-[16.5px]">
+                {item.q}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className="chevron mt-[6px] flex-none text-site-accent"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </summary>
+              <p className="mt-3 max-w-[62ch] text-[15.5px] leading-[1.7] text-site-neutral-300">
+                {item.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

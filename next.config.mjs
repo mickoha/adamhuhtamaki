@@ -15,9 +15,13 @@ const nextConfig = {
   // helpers assume this — keep them in sync if you turn it off.
   trailingSlash: true,
 
-  // next-image-export-optimizer replaces the Next image server: images under
-  // public/images are pre-converted to WebP at build time and served by the
-  // custom loader below.
+  // next-image-export-optimizer replaces the Next image server. Photographs
+  // live in src/images and are pulled in with a static import (@images/*);
+  // the optimizer always scans .next/static/media for those, so it converts
+  // them to WebP at build time without them ever sitting in public/.
+  // imageFolderPath below therefore points at public/ itself, which holds no
+  // photographs — it only has to be a path under public/ or the optimizer
+  // prints a warning and skips its folder scan.
   images: {
     loader: 'custom',
     imageSizes: [10, 32, 48, 64, 96, 128, 256, 384],
@@ -26,7 +30,7 @@ const nextConfig = {
   transpilePackages: ['next-image-export-optimizer'],
 
   env: {
-    nextImageExportOptimizer_imageFolderPath: 'public/images',
+    nextImageExportOptimizer_imageFolderPath: 'public',
     nextImageExportOptimizer_exportFolderPath: 'out',
     nextImageExportOptimizer_quality: '75',
     nextImageExportOptimizer_storePicturesInWEBP: 'true',

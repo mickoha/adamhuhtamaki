@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { LegalPage, H2, P, UL } from '@/components/LegalText';
+import { TAYDENNA, fill } from '@/data/taydenna';
 import { SITE, CONTACT, COMPANY, LEGAL } from '@/data/site';
 
 /**
  * Tietosuojaseloste skeleton — the sections and the GDPR articles referenced
  * here are the ones a Finnish marketing site actually needs, but the contents
- * are a starting point, not legal advice. Fill every [TÄYDENNÄ] and have the
+ * are a starting point, not legal advice. Fill the tietosuoja* fields in
+ * src/data/taydenna.ts and have the
  * result checked by whoever is responsible for data protection before launch.
  *
  * As written it covers the website only (contact form + analytics). If the
@@ -24,16 +26,16 @@ const Privacy = () => (
       <br />
       Y-tunnus: {COMPANY.businessId}
       <br />
-      {COMPANY.streetAddress}, {COMPANY.postalCode} {COMPANY.city}
+      {COMPANY.postalAddress}, {COMPANY.postalCode} {COMPANY.city}
       <br />
       <br />
       Tietosuoja-asioiden yhteyshenkilö: {CONTACT.privacyContactName},{' '}
       {CONTACT.privacyEmail}
     </P>
 
-    <H2>2 Mitä tietoja käsittelemme</H2>
+    <H2>2 Mitä tietoja käsittelen</H2>
     <P>
-      Käsittelemme verkkosivustolla vain niitä henkilötietoja, jotka annat itse
+      Käsittelen verkkosivustolla vain niitä henkilötietoja, jotka annat itse
       tai jotka syntyvät sivuston käytöstä:
     </P>
     <UL>
@@ -47,8 +49,8 @@ const Privacy = () => (
         olet antanut suostumuksen analytiikkaevästeille.
       </li>
       <li>
-        <strong>Tekniset lokitiedot:</strong> [TÄYDENNÄ: mitä palveluntarjoajasi
-        lokittaa, esim. IP-osoite ja aikaleima.]
+        <strong>Tekniset lokitiedot:</strong>{' '}
+        {fill(TAYDENNA.tietosuojaLokitiedot, 'tekniset lokitiedot')}
       </li>
     </UL>
 
@@ -71,7 +73,10 @@ const Privacy = () => (
       Sivusto käyttää välttämättömiä evästeitä sekä suostumuksella
       analytiikkaevästeitä. Evästeet, niiden käyttötarkoitukset ja suostumuksen
       peruuttaminen on kuvattu erikseen sivulla{' '}
-      <Link href="/evastekaytannot/" className="text-site-accent hover:underline">
+      <Link
+        href="/evastekaytannot/"
+        className="text-site-accent hover:underline"
+      >
         Evästekäytännöt
       </Link>
       .
@@ -79,7 +84,7 @@ const Privacy = () => (
 
     <H2>5 Tietojen vastaanottajat</H2>
     <P>
-      Emme myy emmekä vuokraa henkilötietoja. Tietoja käsittelevät puolestamme
+      En myy enkä vuokraa henkilötietoja. Tietoja käsittelevät puolestani
       seuraavat palveluntarjoajat:
     </P>
     <UL>
@@ -93,7 +98,7 @@ const Privacy = () => (
         <strong>Google Analytics</strong> — kävijäanalytiikka, vain
         suostumuksella.
       </li>
-      <li>[TÄYDENNÄ: sivuston tekninen ylläpito / hosting-palveluntarjoaja.]</li>
+      <li>{fill(TAYDENNA.tietosuojaHosting, 'hosting-palveluntarjoaja')}</li>
     </UL>
 
     <H2>6 Tietojen siirto EU:n ulkopuolelle</H2>
@@ -101,15 +106,18 @@ const Privacy = () => (
       Osa yllä mainituista palveluntarjoajista käsittelee tietoja myös EU- ja
       ETA-alueen ulkopuolella. Siirrot perustuvat Euroopan komission
       vakiolausekkeisiin tai EU:n ja Yhdysvaltojen väliseen tietosuojakehykseen
-      (Data Privacy Framework). [TÄYDENNÄ: tarkista käyttämiesi palveluiden
-      siirtoperusteet.]
+      (Data Privacy Framework).{' '}
+      {fill(TAYDENNA.tietosuojaSiirrot, 'siirrot EU:n ulkopuolelle')}
     </P>
 
     <H2>7 Säilytysaika</H2>
     <P>
-      Yhteydenottolomakkeen tiedot säilytetään [TÄYDENNÄ: esim. 24 kuukautta]
+      Yhteydenottolomakkeen tiedot säilytetään{' '}
+      {fill(TAYDENNA.tietosuojaLomakeSailytys, 'lomakkeen säilytysaika')}
       viimeisestä yhteydenotosta, minkä jälkeen ne poistetaan. Analytiikkatiedot
-      säilytetään [TÄYDENNÄ: GA4:n säilytysasetus, esim. 14 kuukautta].
+      säilytetään{' '}
+      {fill(TAYDENNA.tietosuojaAnalytiikkaSailytys, 'analytiikan säilytysaika')}
+      .
     </P>
 
     <H2>8 Rekisteröidyn oikeudet</H2>
@@ -123,20 +131,17 @@ const Privacy = () => (
       <li>peruuttaa suostumus milloin tahansa</li>
     </UL>
     <P>
-      Pyynnöt osoitetaan osoitteeseen {CONTACT.privacyEmail}. Vastaamme kuukauden
+      Pyynnöt osoitetaan osoitteeseen {CONTACT.privacyEmail}. Vastaan kuukauden
       kuluessa. Sinulla on myös oikeus tehdä valitus tietosuojavaltuutetun
       toimistolle (tietosuoja.fi).
     </P>
 
     <H2>9 Tietoturva</H2>
-    <P>
-      [TÄYDENNÄ: kuvaa lyhyesti tekniset ja organisatoriset suojatoimet, esim.
-      salattu yhteys (HTTPS), pääsynhallinta ja käsittelyoikeuksien rajaus.]
-    </P>
+    <P>{fill(TAYDENNA.tietosuojaSuojatoimet, 'suojatoimet')}</P>
 
     <H2>10 Muutokset tähän selosteeseen</H2>
     <P>
-      Päivitämme selostetta, jos käsittely muuttuu. Voimassa oleva versio on aina
+      Päivitän selostetta, jos käsittely muuttuu. Voimassa oleva versio on aina
       nähtävissä osoitteessa {SITE.url}/tietosuojaseloste/.
     </P>
   </LegalPage>

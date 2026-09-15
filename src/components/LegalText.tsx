@@ -1,6 +1,6 @@
 import React from 'react';
 
-/** Shared typography for the legal pages (tietosuojaseloste, palveluehdot). */
+/** Shared typography for the legal pages (tietosuojaseloste). */
 
 export const LegalPage = ({
   title,
@@ -14,7 +14,7 @@ export const LegalPage = ({
   children: React.ReactNode;
 }) => (
   <div className="mx-auto max-w-[760px] px-6 py-16">
-    <h1 className="text-[clamp(28px,3vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] text-site-heading">
+    <h1 className="text-[clamp(28px,3vw,40px)] leading-[1.1] tracking-[-0.02em] text-site-heading">
       {title}
     </h1>
     <P>
@@ -25,7 +25,7 @@ export const LegalPage = ({
 );
 
 export const H2 = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="mb-3 mt-8 text-[20px] font-bold tracking-[-0.01em] text-site-primary">
+  <h2 className="mb-3 mt-8 text-[20px] tracking-[-0.01em] text-site-heading">
     {children}
   </h2>
 );

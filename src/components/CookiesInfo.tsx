@@ -1,94 +1,101 @@
-import { deleteCookie, getCookie, getCookies, setCookie } from 'cookies-next';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { COOKIE_CATEGORIES } from '@/data/cookies';
+import CookieTable from '@/components/CookieTable';
+import ConsentSwitch from '@/components/ConsentSwitch';
+import { CONSENT_CHANGED_EVENT } from '@/utils/analytics';
+import { analyticsAllowed, saveConsent } from '@/utils/consent';
+import { CONTENT_UPDATED_FI } from '@/data/site';
 
 /**
- * Cookie policy page body with a live analytics toggle. Turning it off deletes
- * the ga_ cookie *and* every _ga* cookie Google already set — a policy page
- * that only flips a flag is not a working withdrawal of consent.
+ * The cookie policy page. Its toggle and the settings dialog are the same
+ * control at two mounts: both read `ga_`, both write through saveConsent(),
+ * and this page re-syncs on CONSENT_CHANGED_EVENT so the two can never show
+ * different states within one visit.
+ *
+ * Turning analytics off deletes `ga_` *and* every `_ga*` cookie Google
+ * already set — a policy page that only flips a flag has withdrawn nothing.
  */
 const CookiesInfo = () => {
-  const [gaStatus, setGaStatus] = React.useState(false);
+  const [analytics, setAnalytics] = useState(false);
 
   useEffect(() => {
-    setGaStatus(getCookie('ga_') === 'TRUE');
+    const sync = () => setAnalytics(analyticsAllowed());
+    sync();
+    window.addEventListener(CONSENT_CHANGED_EVENT, sync);
+    return () => window.removeEventListener(CONSENT_CHANGED_EVENT, sync);
   }, []);
 
-  const onClickSwitch = () => {
-    if (gaStatus) {
-      deleteCookie('ga_');
-      setGaStatus(false);
-
-      const cookies = getCookies();
-      Object.keys(cookies).forEach((cookieName) => {
-        if (cookieName.startsWith('_ga')) deleteCookie(cookieName);
-      });
-    } else {
-      const d = new Date();
-      d.setFullYear(d.getFullYear() + 2);
-      setCookie('ga_', 'TRUE', { expires: d });
-      setGaStatus(true);
-    }
+  const toggle = (next: boolean) => {
+    setAnalytics(next);
+    // Writes LOCAL_CONSENT too: a visitor who allows analytics here without
+    // ever having answered the banner would otherwise be left with ga_ set
+    // and nothing loading.
+    saveConsent(next, next ? 'policy_on' : 'policy_off');
   };
 
   return (
-    <div className="mx-auto max-w-[760px] px-6 py-16">
+    <div className="mx-auto max-w-[860px] px-6 py-16 max-md:py-12">
       <Link href="/">
-        <span className="mb-6 inline-block text-[14px] font-semibold text-site-accent hover:underline">
+        <span className="mb-6 inline-block text-[14px] text-site-accent hover:underline">
           ← Takaisin etusivulle
         </span>
       </Link>
 
-      <h1 className="text-[clamp(28px,3vw,40px)] font-bold leading-[1.1] tracking-[-0.02em] text-site-heading">
-        Tietoa evästeistä
+      <h1 className="text-[clamp(28px,3vw,40px)] leading-[1.1] tracking-[-0.02em] text-site-heading">
+        Evästekäytännöt
       </h1>
-      <p className="mb-5 mt-3 text-[15px] leading-[1.7] text-site-muted">
-        Tämä verkkosivusto käyttää evästeitä parantaakseen käyttökokemustasi ja
-        analysoidakseen sivuston liikennettä. Käytämme sekä välttämättömiä
-        evästeitä, jotka ovat tarpeen sivuston perustoimintojen kannalta, että
-        analytiikkaevästeitä.
+      <p className="mt-2 text-[12.5px] text-site-neutral-500">
+        Päivitetty: {CONTENT_UPDATED_FI}
+      </p>
+      <p className="mb-2 mt-5 max-w-[70ch] text-[15px] leading-[1.7] text-site-muted">
+        Tällä sivulla on kaikki, mitä tämä sivusto tallentaa selaimeesi.
+        Analytiikka on pois päältä, kunnes sallit sen itse, ja voit perua
+        suostumuksen milloin tahansa alla olevasta kytkimestä.
       </p>
 
-      <h2 className="mb-3 mt-8 text-[20px] font-bold tracking-[-0.01em] text-site-primary">
-        Välttämättömät evästeet
-      </h2>
-      <h3 className="mb-1 font-mono text-[14px] font-semibold text-site-body">
-        LOCAL_CONSENT
-      </h3>
-      <p className="mb-5 text-[15px] leading-[1.7] text-site-muted">
-        Pitää tiedon siitä, että olet vastannut evästeilmoitukseen, jotta
-        ilmoitus ei näy uudelleen jokaisella käynnillä. Voimassa kaksi vuotta.
-      </p>
-
-      <h2 className="mb-3 mt-8 text-[20px] font-bold tracking-[-0.01em] text-site-primary">
-        Analytiikkaevästeet
-      </h2>
-      <div className="mb-2 flex items-center gap-4">
-        <h3 className="font-mono text-[14px] font-semibold text-site-body">ga_</h3>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={gaStatus}
-          aria-label="Analytiikkaevästeet"
-          onClick={onClickSwitch}
-          className={`relative inline-flex h-[24px] w-[44px] flex-shrink-0 items-center rounded-full transition-colors ${
-            gaStatus ? 'bg-site-accent' : 'bg-site-line-strong'
-          }`}
+      {COOKIE_CATEGORIES.map((cat) => (
+        <section
+          key={cat.id}
+          className="mt-12 border-t border-site-divider pt-8"
         >
-          <span
-            className={`inline-block h-[18px] w-[18px] transform rounded-full bg-white shadow transition-transform ${
-              gaStatus ? 'translate-x-[23px]' : 'translate-x-[3px]'
-            }`}
-          />
-        </button>
-        <span className="text-[13px] font-medium text-site-muted">
-          {gaStatus ? 'Päällä' : 'Pois'}
-        </span>
-      </div>
-      <p className="mb-5 text-[15px] leading-[1.7] text-site-muted">
-        Sallii Google Analyticsin keräämään tietoa sivuston käytöstä (mm.
-        katsotut sivut ja klikatut painikkeet). Käytämme tietoa sivuston
-        kehittämiseen. Kytkimen sulkeminen poistaa evästeet välittömästi.
+          <div className="flex items-start justify-between gap-8">
+            <div>
+              <h2 className="text-[20px] tracking-[-0.01em] text-site-heading">
+                {cat.name}
+              </h2>
+              <p className="mt-2 max-w-[62ch] text-[14.5px] leading-[1.7] text-site-neutral-400">
+                {cat.description}
+              </p>
+            </div>
+            <div className="flex-none pt-1">
+              {cat.id === 'analytics' ? (
+                <div className="flex items-center gap-3">
+                  <ConsentSwitch checked={analytics} onChange={toggle} />
+                  <span className="text-[13px] text-site-neutral-500">
+                    {analytics ? 'Päällä' : 'Pois'}
+                  </span>
+                </div>
+              ) : (
+                /* Not a disabled switch — a greyed toggle reads as something
+                   the visitor failed to turn on. */
+                <span className="text-[13px] text-site-neutral-500">
+                  Aina käytössä
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <CookieTable cat={cat} />
+          </div>
+        </section>
+      ))}
+
+      <p className="mt-10 max-w-[70ch] text-[13.5px] leading-[1.7] text-site-neutral-500">
+        Kytkimen sulkeminen poistaa Google Analyticsin evästeet välittömästi
+        selaimestasi. Voit myös estää evästeet kokonaan selaimesi asetuksista;
+        sivusto toimii silti normaalisti.
       </p>
     </div>
   );

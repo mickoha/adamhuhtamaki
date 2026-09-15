@@ -13,7 +13,8 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@images/*": ["./src/images/*"]
     },
     "target": "ES2017"
   },

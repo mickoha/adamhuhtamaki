@@ -1,22 +1,22 @@
 import { ReactNode } from 'react';
 
-type Variant = 'primary' | 'ghost' | 'ghost-light';
+type Variant = 'primary' | 'secondary' | 'ghost';
 
-const base =
-  'group inline-flex items-center gap-[6px] font-semibold leading-none whitespace-nowrap transition-colors duration-150 active:translate-y-px';
-
-const sizes = {
-  md: 'px-[14px] py-[8px] text-[13px] rounded-site-md',
-  lg: 'px-[18px] py-[11px] text-[14px] rounded-site-lg',
+/**
+ * The design system's button. Primary is an OUTLINE — 1px accent border on
+ * transparent — never a filled accent block; the accent appears as a line, a
+ * mark or a glow, never as a flood. The `.btn*` classes live in globals.css so
+ * hover/active tints stay in one place.
+ */
+const variants: Record<Variant, string> = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  ghost: 'btn-ghost',
 };
 
-const variants: Record<Variant, string> = {
-  primary: 'bg-site-accent text-white hover:bg-site-accent-2',
-  ghost:
-    'bg-white text-site-primary border border-site-line-strong hover:bg-site-hover',
-  /* For use on dark backgrounds. */
-  'ghost-light':
-    'bg-white/[0.08] text-white border border-white/[0.14] hover:bg-white/[0.14]',
+const sizes = {
+  md: 'px-[16px] py-[9px] text-[13.5px]',
+  lg: 'px-[22px] py-[13px] text-[15px]',
 };
 
 interface ButtonProps {
@@ -46,9 +46,7 @@ export default function Button({
   onClick,
   dataTrack,
 }: ButtonProps) {
-  const cls = `${base} ${sizes[size]} ${variants[variant]} ${
-    disabled ? 'cursor-not-allowed opacity-70' : ''
-  } ${className}`;
+  const cls = `btn group ${variants[variant]} ${sizes[size]} ${className}`;
   const track = dataTrack ? { 'data-track-click': dataTrack } : {};
 
   const inner = (
@@ -70,7 +68,13 @@ export default function Button({
     );
   }
   return (
-    <button type={type} disabled={disabled} onClick={onClick} className={cls} {...track}>
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={cls}
+      {...track}
+    >
       {inner}
     </button>
   );

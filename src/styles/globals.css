@@ -1,69 +1,108 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /*
- * Design tokens. Everything visual is a `site-*` token — restyling the whole
- * site for a new brand means editing the values below, not hunting hex codes
- * through components. Tailwind v4 generates the utilities automatically:
+ * Design tokens — "Nocturne", the dark system delivered with the front-page
+ * handoff (.claude/design/design_handoff_frontpage/design-system/styles.css).
+ * Everything visual is a `site-*` token, so restyling means editing the values
+ * below, not hunting hex codes through components. Tailwind v4 generates the
+ * utilities automatically:
  *   --color-site-accent  → bg-site-accent / text-site-accent / border-site-accent
  *   --radius-site-lg     → rounded-site-lg
- *   --shadow-site-card   → shadow-site-card
+ *   --shadow-site-md     → shadow-site-md
+ *
+ * System rules that the components must not break:
+ *   - Primary buttons are outlined (1px accent border), never filled.
+ *   - The accent is a line, a mark or a glow — never a large flood. The only
+ *     saturated fills are the --color-site-section bands.
+ *   - Headings never go bolder than 500; hierarchy comes from size and space.
+ *   - Photographs are composited with .lighten (mix-blend-mode: lighten).
  */
 
-/* Design-reference breakpoints (max-width, so they cascade downward). */
-@custom-variant max-md (@media (max-width: 980px));
+/* Design-reference breakpoints (max-width, so they cascade downward).
+   The handoff specifies a single desktop→mobile switch at ~900px. */
+@custom-variant max-md (@media (max-width: 900px));
 @custom-variant max-sm (@media (max-width: 620px));
 
 @theme {
-  /* ---- Brand ---- */
-  /* Primary: dark brand color — nav background, headings. */
-  --color-site-primary: #111463;
-  --color-site-primary-2: #1a1f7a;
-  /* Accent: the action color — buttons, links, icons, focus rings. */
-  --color-site-accent: #0f9ddf;
-  --color-site-accent-2: #0888c2;
-  --color-site-accent-soft: #eaf6fd;
+  /* ---- Ground ---- */
+  --color-site-bg: #161826;
+  --color-site-surface: #232532;
+  --color-site-text: #e9e9ed;
 
-  /* ---- Surfaces ---- */
-  --color-site-canvas: #f4f6fb;
-  --color-site-surface: #ffffff;
-  --color-site-surface-2: #fafbfd;
-  --color-site-hover: #f4f6fb;
+  /* ---- Accent ---- */
+  --color-site-accent: #9184d9;
+  --color-site-accent-100: #f5f4ff;
+  --color-site-accent-200: #e7e5fe;
+  --color-site-accent-300: #d2cefd;
+  --color-site-accent-400: #b5abfc;
+  --color-site-accent-500: #968ae0;
+  --color-site-accent-600: #796cbf;
+  --color-site-accent-700: #5d5294;
+  --color-site-accent-800: #423a6a;
+  --color-site-accent-900: #2b2741;
+
+  /* ---- Neutral ramp ---- */
+  --color-site-neutral-100: #f3f5fe;
+  --color-site-neutral-200: #e4e7f5;
+  --color-site-neutral-300: #cfd3e5;
+  --color-site-neutral-400: #b2b6ca;
+  --color-site-neutral-500: #9397ab;
+  --color-site-neutral-600: #75798c;
+  --color-site-neutral-700: #595d6c;
+  --color-site-neutral-800: #3f424d;
+  --color-site-neutral-900: #292b31;
+
+  /* ---- Saturated section band (the page's one flood of color) ---- */
+  --color-site-section: #262a60;
+  --color-site-section-glow: #353b80;
+  --color-site-section-ghost: #4c5397;
+
+  /* ---- Semantic aliases (used across the older template components) ---- */
+  --color-site-primary: #161826;
+  --color-site-primary-2: #232532;
+  --color-site-canvas: #161826;
+  --color-site-surface-2: #292b31;
+  --color-site-hover: #292b31;
+  --color-site-heading: #e9e9ed;
+  --color-site-body: #cfd3e5;
+  --color-site-muted: #b2b6ca;
+  --color-site-subtle: #9397ab;
+  --color-site-faint: #75798c;
 
   /* ---- Lines ---- */
-  --color-site-line: #e8eaf2;
-  --color-site-line-strong: #e2e5ee;
-  --color-site-divider: #f1f2f7;
-
-  /* ---- Text ---- */
-  --color-site-heading: #111463;
-  --color-site-body: #1f2937;
-  --color-site-muted: #4b5563;
-  --color-site-subtle: #6b7280;
-  --color-site-faint: #9ca3af;
+  --color-site-divider: color-mix(in srgb, #e9e9ed 16%, transparent);
+  --color-site-line: color-mix(in srgb, #e9e9ed 16%, transparent);
+  --color-site-line-strong: color-mix(in srgb, #e9e9ed 26%, transparent);
+  --color-site-line-soft: color-mix(in srgb, #e9e9ed 8%, transparent);
 
   /* ---- Status ---- */
-  --color-site-ok-bg: #ecfdf5;
-  --color-site-ok-fg: #047857;
-  --color-site-warn-bg: #fff7ed;
-  --color-site-warn-fg: #9a3412;
-  --color-site-danger: #b91c1c;
-  --color-site-danger-bg: #fef2f2;
+  --color-site-ok-bg: #17301f;
+  --color-site-ok-fg: #7fd8a0;
+  --color-site-warn-bg: #322416;
+  --color-site-warn-fg: #e0b184;
+  --color-site-danger: #f2a2a2;
+  --color-site-danger-bg: #331d1d;
 
   /* ---- Radii ---- */
   --radius-site-sm: 4px;
   --radius-site: 6px;
-  --radius-site-md: 7px;
-  --radius-site-lg: 8px;
+  --radius-site-md: 8px;
+  --radius-site-lg: 14px;
   --radius-site-pill: 999px;
 
-  /* ---- Shadows ---- */
-  --shadow-site-card: 0 1px 0 rgba(17, 20, 99, 0.04), 0 2px 6px rgba(17, 20, 99, 0.04);
-  --shadow-site-pop: 0 12px 32px rgba(17, 20, 99, 0.12);
-  --shadow-site-modal: 0 24px 60px rgba(17, 20, 99, 0.18);
+  /* ---- Shadows: a hairline edge + ambient darkness on a dark ground ---- */
+  --shadow-site-sm: 0 0 0 1px #3f424d;
+  --shadow-site-md: 0 0 0 1px #595d6c, 0 6px 18px rgba(0, 0, 0, 0.55);
+  --shadow-site-lg: 0 0 0 1px #9397ab, 0 16px 40px rgba(0, 0, 0, 0.65);
+  /* Aliases kept for the legal/consent components. */
+  --shadow-site-card: 0 0 0 1px #3f424d;
+  --shadow-site-pop: 0 0 0 1px #595d6c, 0 6px 18px rgba(0, 0, 0, 0.55);
+  --shadow-site-modal: 0 0 0 1px #9397ab, 0 16px 40px rgba(0, 0, 0, 0.65);
 
-  /* ---- Fonts (loaded in @/utils/fonts) ---- */
+  /* ---- Fonts (loaded in @/utils/fonts) — Inter, heading weight 500 ---- */
   --font-sans: var(--font-sans-var), system-ui, sans-serif;
-  --font-mono: var(--font-mono-var), ui-monospace, monospace;
+  /* System stack — see src/utils/fonts.ts for why there is no webfont here. */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @layer base {
@@ -71,17 +110,51 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--color-site-canvas);
-    color: var(--color-site-body);
+    background: var(--color-site-bg);
+    color: var(--color-site-text);
     font-family: var(--font-sans);
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+  /* Hierarchy comes from size and space — never from a heavier weight. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
   }
   a {
     color: inherit;
     text-decoration: none;
+  }
+  /* Tailwind v4's preflight sets `cursor: default` on buttons. Every control
+     on this site is a pointer target, so restore it once here rather than
+     remembering a utility class on each button. */
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Never the browser default — the accent ring is part of the system. */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-site-accent);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-site-accent) 30%, transparent);
   }
   /* reCAPTCHA v3 badge: hidden, as allowed when the form shows the required
      "Suojattu reCAPTCHA-palvelun avulla" notice (see ContactForm). */
@@ -91,22 +164,374 @@
 }
 
 @layer components {
+  /* ---- Photography ----------------------------------------------------
+     Photos are composited into the dark ground rather than sitting on it.
+     Source frames must be shot dark — a light background washes out. */
+  .lighten {
+    mix-blend-mode: lighten;
+    background-color: transparent;
+  }
+
+  /* ---- Rules ----------------------------------------------------------
+     Free-standing hairlines fade to transparent over the last 48px each
+     side (a system signature). Box outlines and in-control separators stay
+     solid. */
+  .site-rule {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-site-divider) 48px,
+      var(--color-site-divider) calc(100% - 48px),
+      transparent
+    );
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--color-site-text);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-site-md);
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    color: var(--color-site-accent);
+    border-color: var(--color-site-accent);
+  }
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--color-site-accent) 12%, transparent);
+  }
+  .btn-primary:active {
+    background: color-mix(in srgb, var(--color-site-accent) 22%, transparent);
+  }
+  .btn-secondary {
+    border-color: var(--color-site-divider);
+  }
+  .btn-secondary:hover {
+    background: color-mix(in srgb, var(--color-site-text) 7%, transparent);
+  }
+  .btn-secondary:active {
+    background: color-mix(in srgb, var(--color-site-text) 14%, transparent);
+  }
+  .btn-ghost {
+    color: var(--color-site-accent);
+  }
+  .btn-ghost:hover {
+    background: color-mix(in srgb, var(--color-site-accent) 10%, transparent);
+  }
+
+  /* ---- Tags ---- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    padding: 3px 10px;
+    border-radius: calc(var(--radius-site-md) * 0.75);
+  }
+  .tag-accent {
+    background: var(--color-site-accent-800);
+    color: var(--color-site-accent-100);
+  }
+  .tag-neutral {
+    background: var(--color-site-neutral-800);
+    color: var(--color-site-neutral-100);
+  }
+  .tag-outline {
+    border: 1px solid var(--color-site-accent);
+    color: var(--color-site-accent);
+  }
+
+  /* ---- Forms ---- */
+  .field > label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: color-mix(in srgb, var(--color-site-text) 70%, transparent);
+  }
+  .input {
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 12px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--color-site-text);
+    caret-color: var(--color-site-accent);
+    background: var(--color-site-surface);
+    border: 1px solid var(--color-site-divider);
+    border-radius: var(--radius-site-md);
+    transition: border-color 150ms ease;
+  }
+  .input:hover {
+    border-color: color-mix(in srgb, var(--color-site-text) 45%, transparent);
+  }
+  .input:focus-visible {
+    border-color: var(--color-site-accent);
+    outline-offset: 0;
+  }
+  textarea.input {
+    min-height: 90px;
+    resize: vertical;
+  }
+  select.input {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #9397ab 50%),
+      linear-gradient(135deg, #9397ab 50%, transparent 50%);
+    background-position:
+      calc(100% - 17px) 50%,
+      calc(100% - 12px) 50%;
+    background-size:
+      5px 5px,
+      5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+  }
+  .radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .radio input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  .radio .dot {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-site-divider);
+  }
+  .radio:hover .dot {
+    border-color: var(--color-site-accent);
+  }
+  .radio input:checked + .dot {
+    border-color: var(--color-site-accent);
+    background: var(--color-site-accent);
+    box-shadow: inset 0 0 0 4px var(--color-site-bg);
+  }
+  .radio input:focus-visible + .dot {
+    outline: 2px solid var(--color-site-accent);
+    outline-offset: 2px;
+  }
+
+  /* ---- Disclosures (nav dropdown, FAQ, mobile drawer) ---- */
+  .site-details > summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  .site-details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-details > summary .chevron {
+    transition: transform 180ms ease;
+  }
+  .site-details[open] > summary .chevron {
+    transform: rotate(180deg);
+  }
+  .site-pop {
+    animation: sitePop 140ms ease-out;
+  }
+  .site-drawer {
+    animation: siteDrawer 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .site-drawer-row {
+    animation: siteDrawer 220ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+
+  /* Disclosure answers fade in rather than snapping open. */
+  .site-fade {
+    animation: siteFade 200ms ease-out;
+  }
+
+  /* ---- Consent switch -------------------------------------------------
+     A real <input type="checkbox" role="switch"> at opacity 0 fills the
+     label; the track and the knob are drawn beneath it, so the browser's own
+     checkbox semantics, keyboard handling and :focus-visible stay intact. The
+     ring is put on the track rather than the invisible input, which is why
+     :has() is used instead of a sibling selector. */
+  .site-switch {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    width: 46px;
+    height: 26px;
+    border-radius: var(--radius-site-pill);
+    border: 1px solid var(--color-site-divider);
+    background: var(--color-site-neutral-800);
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease;
+  }
+  .site-switch input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .site-switch .knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-site-neutral-500);
+    pointer-events: none;
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease;
+  }
+  .site-switch:has(input:checked) {
+    background: var(--color-site-accent-900);
+    border-color: var(--color-site-accent);
+  }
+  .site-switch:has(input:checked) .knob {
+    transform: translateX(20px);
+    background: var(--color-site-accent-300);
+  }
+  .site-switch:has(input:focus-visible) {
+    outline: 2px solid var(--color-site-accent);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-switch,
+    .site-switch .knob {
+      transition: none;
+    }
+  }
+
+  /* The consent banner and the settings dialog. Both are the only cards on
+     this site that arrive rather than being scrolled to, so they get their
+     own entry — and under reduced motion it degrades to a plain fade, never
+     to nothing (a modal that blinks into existence is worse than one that
+     fades). */
+  .site-card-in {
+    animation: siteCardIn 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-card-in {
+      animation: siteFade 120ms ease-out;
+    }
+  }
+
+  /* Emergency dot — the one animated element on the page. */
+  .site-pulse {
+    animation: sitePulseRing 2.4s ease-out infinite;
+  }
+
   /* Scroll-reveal used with the useInView hook. */
   .site-reveal {
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
   }
   .site-reveal.is-in {
     opacity: 1;
     transform: none;
   }
 
+  /* A looping background clip is exactly what this preference is for: the
+     element is hidden and the <video>'s own poster shows through instead. */
   @media (prefers-reduced-motion: reduce) {
-    .site-reveal {
+    .site-motion-only {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-reveal,
+    .site-fade,
+    .site-pop,
+    .site-drawer,
+    .site-drawer-row,
+    .site-pulse {
       opacity: 1;
       transform: none;
       transition: none;
+      animation: none;
     }
+  }
+}
+
+@keyframes sitePop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes siteDrawer {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes siteFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sitePulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(145, 132, 217, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(145, 132, 217, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(145, 132, 217, 0);
+  }
+}
+
+@keyframes siteCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

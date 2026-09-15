@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-image-export-optimizer --nextConfigPath next.config.mjs .htaccess",
+    "build": "next build && next-image-export-optimizer --nextConfigPath next.config.mjs",
     "start": "npx serve out",
     "lint": "eslint .",
-    "postbuild": "next-sitemap"
+    "postbuild": "node scripts/copy-htaccess.mjs && next-sitemap && node scripts/prune-originals.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

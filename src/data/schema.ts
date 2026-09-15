@@ -18,6 +18,21 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 /**
+ * Where the firm actually works. The three cities are named explicitly and the
+ * country after them: without a street address there is nothing else telling a
+ * search or answer engine that "asianajaja Espoo" is a query this firm answers,
+ * and a bare Country node loses every city-level query in the capital region.
+ * Naming a city here is a claim that the firm serves it — do not add cities the
+ * firm does not actually cover.
+ */
+export const AREA_SERVED: Record<string, unknown>[] = [
+  { '@type': 'City', name: 'Helsinki' },
+  { '@type': 'City', name: 'Espoo' },
+  { '@type': 'City', name: 'Vantaa' },
+  { '@type': 'Country', name: 'Finland' },
+];
+
+/**
  * Sitewide identity. Carry every verifiable identifier you have (Y-tunnus,
  * registered address, language, area served) — that is what lets a search or
  * answer engine tell you apart from a same-named company elsewhere. Take the
@@ -25,7 +40,9 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
  */
 export const organizationSchema: Record<string, unknown> = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  // LegalService alongside Organization: it is the type an answer engine
+  // matches against "rikosasianajaja Helsinki" -style questions.
+  '@type': ['Organization', 'LegalService'],
   '@id': ORG_ID,
   name: SITE.name,
   legalName: SITE.legalName,
@@ -47,19 +64,54 @@ export const organizationSchema: Record<string, unknown> = {
       contactType: 'sales',
       email: CONTACT.email,
       telephone: CONTACT.phone,
-      areaServed: COMPANY.country,
+      areaServed: AREA_SERVED,
       availableLanguage: ['fi', 'en'],
     },
   ],
   address: {
     '@type': 'PostalAddress',
-    streetAddress: COMPANY.streetAddress,
+    // streetAddress, not postOfficeBoxNumber: the address is street-shaped
+    // ("Viipurinkatu 12 L 156"), and postOfficeBoxNumber is for an actual box
+    // number. Putting one in the other would be wrong data in the one place a
+    // search engine treats as authoritative. This asserts where post reaches
+    // the firm, not that clients can walk in — schema.org has no field for
+    // that distinction, and the visible copy carries it instead.
+    streetAddress: COMPANY.postalAddress,
     postalCode: COMPANY.postalCode,
     addressLocality: COMPANY.city,
     addressCountry: COMPANY.country,
   },
+  // Rates as published in the Hinnasto section, VAT-exclusive.
+  priceRange: '270–300 €/h',
+  // The firm is one named attorney; saying so is what lets an answer engine
+  // connect the person and the practice.
+  member: {
+    '@type': 'Person',
+    name: 'Adam Huhtamäki',
+    jobTitle: 'Asianajaja',
+  },
   knowsLanguage: ['fi', 'fi-FI'],
-  areaServed: { '@type': 'Country', name: COMPANY.countryName },
+  areaServed: AREA_SERVED,
+  /**
+   * The päivystys is genuinely 24/7 and the attorney answers it himself, so
+   * this is a statement of fact rather than an SEO flourish. If that ever
+   * stops being true, this node comes out the same day — an opening-hours
+   * claim is the one piece of structured data a visitor can disprove at 3 a.m.
+   */
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    opens: '00:00',
+    closes: '23:59',
+  },
   // Add verified profile URLs (LinkedIn, Google Business, toimialarekisteri)
   // once you have them — sameAs is the strongest disambiguation signal there is.
   // sameAs: ['https://www.linkedin.com/company/…'],
@@ -80,7 +132,7 @@ export const webSiteSchema: Record<string, unknown> = {
 
 /** BreadcrumbList, e.g. breadcrumbSchema([{name:'Etusivu',path:'/'}, …]). */
 export const breadcrumbSchema = (
-  trail: { name: string; path: string }[]
+  trail: { name: string; path: string }[],
 ): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -94,7 +146,7 @@ export const breadcrumbSchema = (
 
 /** Build a FAQPage from any FAQ list so JSON-LD never drifts from the text. */
 export const faqPageSchemaFrom = (
-  items: FaqItem[]
+  items: FaqItem[],
 ): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -130,8 +182,11 @@ export const serviceSchema = ({
   description,
   url: url.endsWith('/') ? url : `${url}/`,
   provider: { '@id': ORG_ID },
-  areaServed: { '@type': 'Country', name: COMPANY.countryName },
+  areaServed: AREA_SERVED,
   availableLanguage: 'fi',
+  // The structured-data twin of the visible "Päivitetty" stamp. Both derive
+  // from TAYDENNA.paivitetty, so they cannot disagree.
+  dateModified: CONTENT_UPDATED_ISO,
 });
 
 /** SoftwareApplication — for SaaS products. Drop it if you sell services. */

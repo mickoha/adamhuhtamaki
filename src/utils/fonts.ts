@@ -1,4 +1,4 @@
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 /**
  * Swap the families here to rebrand typography — the CSS variable names are
@@ -14,8 +14,10 @@ export const sans = Inter({
   variable: '--font-sans-var',
 });
 
-export const mono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono-var',
-});
+/*
+ * There is no webfont for --font-mono on purpose. JetBrains Mono cost 39.5 kB
+ * on EVERY page and the site sets `font-mono` in exactly one place — the
+ * cookie names in the consent table. A system monospace stack renders those
+ * identically well for free. If a design ever leans on monospace properly,
+ * add the family back here and bind it to --font-mono-var in globals.css.
+ */

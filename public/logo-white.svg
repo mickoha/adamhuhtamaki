@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 69" width="400" height="69" role="img" aria-label="Logo">
-  <!-- Placeholder logo for dark backgrounds (the nav bar). -->
-  <rect x="0" y="14" width="41" height="41" rx="9" fill="#ffffff" fill-opacity="0.12"/>
-  <path d="M12 34.5l6 6 11-13" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="55" y="47" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="700" letter-spacing="-0.8" fill="#ffffff">Esimerkki</text>
-</svg>

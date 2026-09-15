@@ -1,11 +1,12 @@
 import '@/styles/globals.css';
-import { sans, mono } from '@/utils/fonts';
+import { sans } from '@/utils/fonts';
 import { getCookie } from 'cookies-next';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import { CONSENT_CHANGED_EVENT } from '@/utils/analytics';
+import { ANALYTICS_COOKIE, CONSENT_COOKIE } from '@/data/cookies';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [consentAccepted, setConsentAccepted] = useState(false);
@@ -19,7 +20,8 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const syncConsent = () => {
       setConsentAccepted(
-        getCookie('LOCAL_CONSENT') === 'TRUE' && getCookie('ga_') === 'TRUE'
+        getCookie(CONSENT_COOKIE) === 'TRUE' &&
+          getCookie(ANALYTICS_COOKIE) === 'TRUE',
       );
     };
     syncConsent();
@@ -30,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const gaId = process.env.NEXT_PUBLIC_GTAG_ID;
 
   return (
-    <div className={`${sans.variable} ${mono.variable}`}>
+    <div className={sans.variable}>
       <Component {...pageProps} />
       <AnalyticsTracker />
       {consentAccepted && gaId && <GoogleAnalytics gaId={gaId} />}

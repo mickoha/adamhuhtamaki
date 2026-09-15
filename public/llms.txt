@@ -1,26 +1,65 @@
-# [TÄYDENNÄ: Brändi]
+# Asianajotoimisto Adam Huhtamäki
 
-> [TÄYDENNÄ: yksi kappale, joka kertoo mitä yritys tekee, kenelle ja millä
-> alueella. Tämä on se teksti, jonka kielimalli lainaa, kun sitä kysytään —
-> kirjoita se kuin vastaisit suoraan kysymykseen "mikä on X?".]
+> Asianajotoimisto Adam Huhtamäki on rikosoikeuteen erikoistunut suomalainen
+> asianajotoimisto. Se avustaa rikoksesta epäiltyjä, asianomistajia ja yhtiöitä
+> esitutkinnasta hovioikeuteen sekä vakavissa pakkokeinoasioissa, kuten
+> vangitsemisvaatimuksissa, takavarikoissa ja kotietsinnöissä. Toimialue on
+> pääkaupunkiseutu ja koko Suomi.
 
-[TÄYDENNÄ: toinen kappale: miten palvelu käytännössä toimii ja miten aloitetaan.]
+Toimistolla on rikospäivystys, joka vastaa myös iltaisin, viikonloppuisin ja
+tarvittaessa yöllä. Ensimmäinen arvio puhelimessa on maksuton, ja samalla
+puhelulla selvitetään, kattaako valtion oikeusapu, tuomioistuimen määräämä
+puolustajan tehtävä tai vakuutuksen oikeusturva palkkion. Yhteydenotto alkaa
+soitolla päivystysnumeroon tai yhteydenottopyynnöllä etusivun lomakkeella.
 
-## Mitä teemme
+## Mitä teen
 
-- **[TÄYDENNÄ: palvelu]**: [TÄYDENNÄ: konkreettinen kuvaus — nimeä työkalut,
-  integraatiot ja lopputulokset, älä adjektiiveja.]
-- **[TÄYDENNÄ: palvelu]**: [TÄYDENNÄ]
+- **Rikosoikeus**: avustaminen vakavissa rikosasioissa – väkivalta- ja
+  henkirikokset, huume-, talous- ja seksuaalirikokset – esitutkinnasta
+  hovioikeuteen, sekä epäillyn että asianomistajan puolella. Lisäksi
+  virkarikokset ja työturvallisuusrikokset; työturvallisuusasioissa
+  avustetaan sekä työntekijää että yhtiötä.
+- **Pakkokeinot**: vangitsemisvaatimukset, matkustuskielto, takavarikko ja
+  vakuustakavarikko sekä kotietsintä ja niiden laillisuuden riitauttaminen.
+- **Vahingonkorvaus**: korvausvaatimusten ajaminen ja niiden torjunta.
+- **Riidanratkaisu ja oikeudenkäynnit**: käräjä- ja hovioikeusprosessit sekä
+  sovintoneuvottelut.
+
+## Palkkiot
+
+- Ensimmäinen arvio puhelimessa: 0 €.
+- Valtion oikeusapu kattaa palkkion kokonaan tai osittain tulojen perusteella.
+- Vakavissa rikoksissa tuomioistuin voi määrätä puolustajan valtion varoista
+  tuloista riippumatta.
+- Koti- tai yritysvakuutuksen oikeusturva korvaa usein riita- ja
+  korvausasioiden kulut.
+- Tuntipalkkio yksityishenkilöille: 270 €/h (338,85 €/h sis. alv 25,5 %).
+- Tuntipalkkio yrityksille: 300 €/h (376,50 €/h sis. alv 25,5 %).
 
 ## Sivut
 
-- [Palvelut](https://example.fi/palvelut): [TÄYDENNÄ: mitä sivulta löytyy.]
-- [Ota yhteyttä](https://example.fi/yhteystiedot): [TÄYDENNÄ].
+- [Etusivu](https://adamhuhtamaki.fi/): erikoisalat, palkkiot, usein kysytyt
+  kysymykset ja yhteydenotto.
+- [Rikosasianajaja](https://adamhuhtamaki.fi/rikosasianajaja/): avustaminen
+  vakavissa rikosasioissa esitutkinnasta hovioikeuteen, sekä epäillyn että
+  asianomistajan puolella.
+- [Pakkokeinot](https://adamhuhtamaki.fi/pakkokeinot/): vangitsemisvaatimus,
+  matkustuskielto, takavarikko ja kotietsintä sekä niiden laillisuuden
+  riitauttaminen.
+- [Vahingonkorvaus](https://adamhuhtamaki.fi/vahingonkorvaus/):
+  korvausvaatimusten laatiminen ja perusteettomien vaatimusten torjunta.
+- [Riidanratkaisu](https://adamhuhtamaki.fi/riidanratkaisu/): työsuhde- ja
+  sopimusriidat sekä kuluttajariidat, neuvotellen tai oikeudessa.
+- [Yhteystiedot](https://adamhuhtamaki.fi/yhteystiedot/): päivystysnumero,
+  sähköposti, postiosoite ja tapaamiskäytännöt.
 
 ## Yritys
 
-- Nimi: [TÄYDENNÄ: Yritys Oy]
+- Nimi: Asianajotoimisto Adam Huhtamäki
+- Asianajaja: Adam Huhtamäki, Suomen Asianajajaliiton jäsen
 - Y-tunnus: [TÄYDENNÄ]
-- Toiminta-alue: Suomi
-- Verkkosivu: https://example.fi
-- Yhteydenotot: info@example.fi, +358 00 000 0000
+- Toiminta-alue: pääkaupunkiseutu ja koko Suomi
+- Verkkosivu: https://adamhuhtamaki.fi
+- Päivystys: 045 873 6007 (+358 45 873 6007), 24/7
+- Sähköposti: toimisto@adamhuhtamaki.fi
+- Asianajajan sähköposti: adam@adamhuhtamaki.fi

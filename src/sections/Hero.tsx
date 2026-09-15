@@ -1,54 +1,82 @@
-import Wrap from '@/components/Wrap';
-import Button from '@/components/Button';
 import Eyebrow from '@/components/Eyebrow';
+import ImageComponent from '@/components/ImageComponent';
+import { CONTACT, CONTENT_UPDATED_FI } from '@/data/site';
+import hero from '@images/hero.jpg';
 
 /**
- * Homepage hero. The H1 and the lead paragraph are the two lines that decide
- * both the search snippet and whether the visitor stays — say what the company
- * does and for whom, in plain words, before any adjective.
+ * The hero runs UNDER the transparent header (-76px) so the photograph starts
+ * at the very top of the viewport. On mobile the header is opaque, so the pull
+ * is dropped. Two scrims keep the text legible over any frame: one raking in
+ * from the left, one lifting the page ground back up over the bottom edge.
  */
 export default function Hero() {
   return (
     <section
       data-track-section="hero"
-      className="relative overflow-hidden border-b border-site-line bg-[linear-gradient(180deg,#FFFFFF_0%,var(--color-site-canvas)_100%)] pb-[88px] pt-[72px] max-md:py-14"
+      className="relative -mt-[76px] flex min-h-[736px] items-end overflow-hidden max-md:mt-0 max-md:min-h-[620px]"
     >
-      {/* Soft brand glow. Decorative only. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(700px 360px at 85% 8%, rgba(15,157,223,0.10), transparent 60%), radial-gradient(640px 460px at -8% 90%, rgba(17,20,99,0.05), transparent 65%)',
-        }}
+      {/* No .lighten here — the two scrims below do the compositing, and this
+          is the LCP image, so it is the one image on the page with priority. */}
+      <ImageComponent
+        src={hero}
+        alt="Tyhjä kuulusteluhuone: metallipöytä, käsiraudat ja asiakirjakansio yksittäisen lampun valossa"
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover"
       />
-      <Wrap className="relative grid grid-cols-[1.05fr_1fr] items-center gap-[56px] max-md:grid-cols-1">
-        <div>
-          <Eyebrow>[TÄYDENNÄ: lyhyt yläotsikko]</Eyebrow>
-          <h1 className="my-[18px] text-[clamp(36px,4.6vw,56px)] font-bold leading-[1.1] tracking-[-0.02em] text-site-heading">
-            [TÄYDENNÄ: mitä teette]{' '}
-            <span className="text-site-accent">[TÄYDENNÄ: ja mitä asiakas saa]</span>
-          </h1>
-          <p className="max-w-[560px] text-[17px] leading-[1.6] text-site-muted">
-            [TÄYDENNÄ: 2–3 lausetta, jotka kertovat konkreettisesti mitä
-            palvelu tekee, kenelle se on ja mikä siinä on erilaista. Ei
-            adjektiiveja ilman katetta.]
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-[10px]">
-            <Button href="#yhteys" variant="primary" size="lg" arrow dataTrack="hero_cta">
-              Ota yhteyttä
-            </Button>
-            <Button href="/palvelut/" variant="ghost" size="lg" dataTrack="hero_palvelut">
-              Katso palvelut
-            </Button>
-          </div>
-        </div>
 
-        {/* Visual slot: an <ImageComponent>, an illustration, or a CSS mock. */}
-        <div className="grid min-h-[280px] place-items-center rounded-site-lg border border-site-line bg-white p-8 text-[13px] text-site-faint shadow-site-card">
-          [TÄYDENNÄ: kuva tai visuaali]
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(100deg,rgba(22,24,38,0.94)_0%,rgba(22,24,38,0.86)_42%,rgba(22,24,38,0.35)_100%)] max-md:bg-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[linear-gradient(to_top,#161826_0%,rgba(22,24,38,0)_45%)] max-md:bg-[linear-gradient(to_top,#161826_4%,rgba(22,24,38,0.9)_52%,rgba(22,24,38,0.62)_100%)]"
+      />
+
+      <div className="relative mx-auto w-full max-w-[1400px] px-[56px] pb-[84px] pt-[150px] max-md:px-5 max-md:pb-11 max-md:pt-[90px]">
+        <div className="pointer-events-none max-w-[1120px]">
+          <Eyebrow>
+            Rikosoikeuteen erikoistunut asianajotoimisto valtakunnallisesti
+          </Eyebrow>
+
+          <h1 className="mt-5 max-w-[15ch] text-[68px] leading-[1.03] tracking-[-0.025em] text-balance max-md:mt-4 max-md:text-[38px] max-md:leading-[1.06]">
+            Puolustus alkaa ensimmäisestä puhelusta.
+          </h1>
+
+          <p className="mt-6 max-w-[54ch] text-[19px] leading-[1.6] text-site-neutral-300 max-md:mt-4 max-md:text-[15.5px]">
+            Avustan yksityishenkilöitä ja yhtiöitä erityisesti vakavissa
+            rikosasioissa ja vakavissa pakkokeinokysymyksissä. Minulla on pitkä
+            kokemus useista sadoista oikeudenkäynneistä. Toimin pääasiassa
+            pääkaupunkiseudulla, mutta hoidan toimeksiantoja tarvittaessa
+            valtakunnallisestikin. Ymmärrän, että rikosasia voi tulla vireille
+            milloin tahansa. Siksi minulle voi soittaa milloin tahansa.
+          </p>
+
+          <div className="pointer-events-auto mt-9 flex flex-wrap items-center gap-3 max-md:mt-7 max-md:flex-col max-md:items-stretch">
+            <a
+              href={`tel:${CONTACT.phone}`}
+              data-track-click="hero_paivystys"
+              className="btn btn-primary px-[22px] py-[13px] text-[15px] max-md:px-5 max-md:py-[15px]"
+            >
+              Soita päivystykseen 24/7
+            </a>
+            <a
+              href="#yhteys"
+              data-track-click="hero_yhteydenottopyynto"
+              className="btn btn-secondary px-[22px] py-[13px] text-[15px] max-md:px-5 max-md:py-[15px]"
+            >
+              Jätä yhteydenottopyyntö
+            </a>
+          </div>
+
+          {/* Freshness stamp — same sitewide date as every other hero. */}
+          <p className="mt-8 text-[11.5px] uppercase tracking-[0.18em] text-site-neutral-500 max-md:mt-6 max-md:text-[10px]">
+            Päivitetty: {CONTENT_UPDATED_FI}
+          </p>
         </div>
-      </Wrap>
+      </div>
     </section>
   );
 }
