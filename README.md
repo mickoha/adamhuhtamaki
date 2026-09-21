@@ -44,7 +44,7 @@ a deliberate placeholder — the site is not launch-ready until none are left.
    `src/utils/fonts.ts` swaps the typefaces.
 4. **`public/`** — replace the placeholder `logo.svg`, `logo-white.svg` and
    `favicon.svg`; generate the favicon set at realfavicongenerator.net and
-   uncomment the PNG/ICO links in `_document.tsx`; add `og-cover.jpg` at
+   uncomment the PNG/ICO links in `_document.tsx`; add `og-image-adam-huhtamaki.jpg` at
    1200×630; fill in `site.webmanifest`; edit `.htaccess` for your canonical
    host (or delete it if your host handles redirects).
 5. **`src/data/nav.ts`** — header and footer links.

@@ -1,5 +1,4 @@
 import type { FaqItem } from '@/data/faq';
-import { TAYDENNA, fill } from '@/data/taydenna';
 
 /**
  * Content for the riidanratkaisu page (.claude/design/riidanratkaisu/).
@@ -90,10 +89,7 @@ export const RIITA_FAQ: FaqItem[] = [
   },
   {
     q: 'Kuinka kauan siviilioikeudenkäynti kestää?',
-    a: `Riita-asian käsittely käräjäoikeudessa kestää tyypillisesti ${fill(
-      TAYDENNA.siviiliprosessinKesto,
-      'käsittelyn kesto'
-    )} haastehakemuksen jättämisestä tuomion antamiseen. Jos asia ratkaistaan neuvottelemalla ennen oikeudenkäyntiä, prosessi voi olla ohi muutamassa viikossa.`,
+    a: 'Riita-asian käsittely käräjäoikeudessa kestää tyypillisesti 7–11 kuukautta haastehakemuksen jättämisestä tuomion antamiseen. Riidattomat asiat, kuten selvät velkomusasiat, ratkeavat nopeammin, yleensä 2–3 kuukaudessa. Jos asia ratkaistaan neuvottelemalla ennen oikeudenkäyntiä, prosessi voi olla ohi muutamassa viikossa.',
   },
 ];
 

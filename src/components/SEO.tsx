@@ -1,6 +1,21 @@
 import Head from 'next/head';
 import { SITE } from '@/data/site';
 
+/**
+ * Origin the share image is fetched from. Defaults to SITE.url, like every other
+ * absolute URL on the site. The one exception is a test deploy: scrapers
+ * (WhatsApp, Facebook, LinkedIn) fetch og:image from whatever host it names, and
+ * the production host does not have the file until launch — so a test build is
+ * run with the override set on the command line:
+ *
+ *   NEXT_PUBLIC_OG_IMAGE_ORIGIN=https://test.adamhuhtamaki.fi npm run build
+ *
+ * NEXT_PUBLIC_ so the server-rendered HTML and the hydrated <Head> agree. Never
+ * put it in .env.local: a plain `npm run build` must always produce the
+ * production value, or the test host would leak into launch.
+ */
+const OG_IMAGE_ORIGIN = process.env.NEXT_PUBLIC_OG_IMAGE_ORIGIN || SITE.url;
+
 type SEOProps = {
   /** ~55–60 chars. Put the keyword first, brand last. */
   title: string;
@@ -20,7 +35,7 @@ export default function SEO({
   title,
   description,
   url,
-  image = `${SITE.url}${SITE.ogImage}`,
+  image = `${OG_IMAGE_ORIGIN}${SITE.ogImage}`,
   keywords,
   imageAlt = SITE.ogImageAlt,
   children,

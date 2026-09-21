@@ -55,11 +55,11 @@ soitolla päivystysnumeroon tai yhteydenottopyynnöllä etusivun lomakkeella.
 
 ## Yritys
 
-- Nimi: Asianajotoimisto Adam Huhtamäki
+- Nimi: Asianajotoimisto Adam Huhtamäki Oy
 - Asianajaja: Adam Huhtamäki, Suomen Asianajajaliiton jäsen
-- Y-tunnus: [TÄYDENNÄ]
+- Y-tunnus: 3651214-7
 - Toiminta-alue: pääkaupunkiseutu ja koko Suomi
 - Verkkosivu: https://adamhuhtamaki.fi
-- Päivystys: 045 873 6007 (+358 45 873 6007), 24/7
+- Päivystys: +358 45 873 6007, 24/7
 - Sähköposti: toimisto@adamhuhtamaki.fi
 - Asianajajan sähköposti: adam@adamhuhtamaki.fi

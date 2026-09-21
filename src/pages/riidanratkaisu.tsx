@@ -39,7 +39,7 @@ export default function Riidanratkaisu() {
   return (
     <>
       <SEO
-        title="Riidanratkaisu ja oikeudenkäynnit | Asianajaja riita-asioissa"
+        title="Asianajaja riita-asioissa | Riidanratkaisu Helsinki"
         description="Työsuhderiita, sopimusriita tai kuluttajariita? Avustan yrityksiä ja yksityishenkilöitä neuvotteluissa ja oikeudenkäynneissä. Ota yhteyttä."
         url={url}
       >

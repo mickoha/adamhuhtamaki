@@ -1,5 +1,6 @@
 import { getCookie } from 'cookies-next';
 import { ANALYTICS_COOKIE } from '@/data/cookies';
+import { getAiReferral } from '@/utils/aiReferral';
 
 declare global {
   interface Window {
@@ -29,14 +30,20 @@ declare global {
  * - contact_form_error  { reason }                  — send failed
  * - faq_open            { faq_question }            — FAQ item opened
  * - cookie_consent      { choice }                  — consent given
+ * - ai_referral         { ai_source, ai_landing_page, ai_raw_referrer }
+ *                                                   — visit arrived from an AI answer
+ *                                                     (once per visit, see utils/aiReferral.ts)
  *
  * Every event also carries `content_group`, so the six content pages can be
- * compared as groups instead of read as a flat page list.
+ * compared as groups instead of read as a flat page list. Events in a visit
+ * that came from an AI answer also carry `ai_source`, which is what makes
+ * "did anyone ChatGPT sent here actually call?" a single report.
  *
  * Register the params you want to report on as custom dimensions in GA4 Admin
  * → Custom definitions: section_name, cta_label, cta_type, cta_location,
- * method, reason, choice. `content_group` is a GA4 built-in — do NOT register
- * it as a custom dimension; it already has its own reporting dimension.
+ * method, reason, choice, ai_source, ai_landing_page. `content_group` is a GA4
+ * built-in — do NOT register it as a custom dimension; it already has its own
+ * reporting dimension.
  */
 
 /**
@@ -87,9 +94,15 @@ const trackEvent = (name: string, params?: Record<string, unknown>) => {
       window.dataLayer!.push(arguments);
     };
   }
+  // Attribution rides along on every event, so `generate_lead` itself carries
+  // the AI source — otherwise the referral and the conversion sit in two
+  // reports with nothing but a session joining them.
+  const ai = getAiReferral();
+
   window.gtag('event', name, {
     page_path: window.location.pathname,
     content_group: contentGroupFor(window.location.pathname),
+    ...(ai ? { ai_source: ai.source } : {}),
     ...params,
   });
 };

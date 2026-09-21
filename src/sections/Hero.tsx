@@ -47,7 +47,7 @@ export default function Hero() {
 
           <p className="mt-6 max-w-[54ch] text-[19px] leading-[1.6] text-site-neutral-300 max-md:mt-4 max-md:text-[15.5px]">
             Avustan yksityishenkilöitä ja yhtiöitä erityisesti vakavissa
-            rikosasioissa ja vakavissa pakkokeinokysymyksissä. Minulla on pitkä
+            rikosasioissa ja pakkokeinokysymyksissä. Minulla on pitkä
             kokemus useista sadoista oikeudenkäynneistä. Toimin pääasiassa
             pääkaupunkiseudulla, mutta hoidan toimeksiantoja tarvittaessa
             valtakunnallisestikin. Ymmärrän, että rikosasia voi tulla vireille

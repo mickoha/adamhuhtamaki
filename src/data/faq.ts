@@ -23,6 +23,10 @@ export const FAQ: FaqItem[] = [
     a: 'Kyllä voi. Avustajan voi hankkia missä tahansa rikosprosessin vaiheessa, mutta suositeltavaa on olla yhteydessä jo ennen ensimmäistäkään kuulustelua poliisin kanssa.',
   },
   {
+    q: 'Avustatko myös rikoksen uhria eli asianomistajaa?',
+    a: 'Avustan. Hoidan sekä rikoksesta epäiltyjä että asianomistajia esitutkinnasta hovioikeuteen. Vakavissa rikoksissa tuomioistuin voi määrätä asianomistajalle oikeudenkäyntiavustajan, jolloin palkkio maksetaan valtion varoista. Tarkistan tilanteesi puhelimessa ennen kuin mitään laskutetaan, ja ensimmäinen arvio on 0 €.',
+  },
+  {
     q: 'Miten asianajajan kulut maksetaan, jos minulla ei ole tuloja?',
     a: 'Jos tulosi ovat pienet, olet todennäköisesti oikeutettu valtion kustantamaan oikeusapuun. Vakavissa rikoksissa, joista voi seurata vankeutta, sinulle voidaan myös määrätä puolustaja valtion varoista tuloista riippumatta.',
   },

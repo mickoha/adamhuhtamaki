@@ -83,7 +83,7 @@ export default function EmergencyBand({
           <p className="text-[15px] leading-[1.65] text-site-accent-200">
             {panelNote ?? (
               <>
-                Vastaan puhelimeen itse, tarvittaessa myös yöllä. Jos en pääse
+                Vastaan puhelimeen itse. Jos en pääse
                 vastaamaan, soitan takaisin heti, kun vapaudun oikeussalista tai
                 poliisiasemalta.
               </>

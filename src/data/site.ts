@@ -29,7 +29,7 @@ export const SITE = {
   /** Browser/PWA theme color — keep in sync with --color-site-primary. */
   themeColor: '#161826',
   /** Default social share image, relative to public/. 1200×630. */
-  ogImage: '/og-cover.jpg',
+  ogImage: '/og-image-adam-huhtamaki.jpg',
   /** Alt text for that share image. */
   ogImageAlt:
     'Asianajotoimisto Adam Huhtamäki – rikosoikeuteen erikoistunut asianajaja',
@@ -97,7 +97,7 @@ export const FEATURES = {
 /** Version + effective date rendered at the top of the legal pages. */
 export const LEGAL = {
   version: '1.0',
-  effectiveFi: '31.8.2026',
+  effectiveFi: '18.9.2026',
 } as const;
 
 /**

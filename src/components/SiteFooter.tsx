@@ -225,8 +225,9 @@ export default function SiteFooter() {
             )}
           </div>
 
-          {/* [TÄYDENNÄ: vahvista palvelukielet] */}
-          <p>Palvelu suomeksi, ruotsiksi ja englanniksi</p>
+          {/* Kielet vahvistettu 18.9.2026 — sama pari kuin JSON-LD:n
+              availableLanguage: ['fi', 'en'] src/data/schema.ts:68. */}
+          <p>Palvelu suomeksi ja englanniksi</p>
         </div>
       </div>
     </footer>

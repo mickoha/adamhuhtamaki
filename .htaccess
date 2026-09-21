@@ -20,21 +20,20 @@ RewriteRule ^\.well-known/ - [L]
 # ---------------------------------------------------------------------------
 # Canonical host + HTTPS, in a single 301.
 #
-# THIS IS THE ONE LINE TO CHANGE WHEN GOING LIVE:
-#   test.adamhuhtamaki.fi  ->  adamhuhtamaki.fi
+# Switched to the production host on 18.9.2026. Point it back at
+# test.adamhuhtamaki.fi only while a copy is being served from the test
+# subdomain — on the test host this same line is what keeps visitors there
+# instead of bouncing them to production.
 #
-# It is the test host on purpose. Nothing else in the build points here —
-# SITE.url in src/data/site.ts stays on the production domain so canonical
-# tags, JSON-LD and sitemap.xml keep naming the real address even while the
-# files are served from the test subdomain. That is what stops the test copy
-# from competing with production in search.
+# SITE.url in src/data/site.ts names the production domain either way, so
+# canonical tags, JSON-LD and sitemap.xml always point at the real address.
 #
 # `www` must be on the production TLS certificate even though it is redirected
 # away here: the handshake completes before the browser ever sees this 301.
 # ---------------------------------------------------------------------------
 RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
-RewriteRule ^(.*)$ https://test.adamhuhtamaki.fi/$1 [L,R=301]
+RewriteRule ^(.*)$ https://adamhuhtamaki.fi/$1 [L,R=301]
 
 # ---------------------------------------------------------------------------
 # Keep the test environment out of search engines.

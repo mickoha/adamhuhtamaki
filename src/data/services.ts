@@ -52,13 +52,13 @@ export const SPECIALITIES: Speciality[] = [
     title: 'Rikosoikeus ja vakavat rikokset',
     body: 'Väkivalta- ja henkirikokset, huume-, talous- ja seksuaalirikokset. Avustaminen esitutkinnasta hovioikeuteen, myös asianomistajan puolella.',
     href: '/rikosasianajaja/',
-    linkLabel: 'Lue lisää rikosoikeudesta',
+    linkLabel: 'Rikosasianajajan apu vakavissa rikoksissa',
   },
   {
     title: 'Pakkokeinot',
     body: 'Vangitsemisvaatimukset, matkustuskielto, kotietsintä sekä omaisuuden takavarikko ja vakuustakavarikko — ja niiden laillisuuden riitauttaminen.',
     href: '/pakkokeinot/',
-    linkLabel: 'Lue lisää pakkokeinoista',
+    linkLabel: 'Pakkokeinot ja niiden riitauttaminen',
   },
 ];
 

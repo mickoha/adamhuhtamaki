@@ -27,11 +27,11 @@ export const TAYDENNA = {
   // ==========================================================================
 
   /** Rekisteröity toiminimi kaupparekisterin mukaan, esim. 'Asianajotoimisto Adam Huhtamäki Oy'. */
-  legalName: 'Adam Huhtamäki Oy',
+  legalName: 'Asianajotoimisto Adam Huhtamäki Oy',
   /** Y-tunnus muodossa 1234567-8. Ota YTJ-rekisteristä, älä muistista. */
   businessId: '3651214-7',
   /** ALV-tunnus, esim. FI12345678. */
-  vatId: 'F36512147',
+  vatId: 'FI36512147',
   /** Vuosi jona toimisto on perustettu, esim. '2019'. */
   founded: '2026',
 
@@ -43,7 +43,7 @@ export const TAYDENNA = {
    *  Tästä muodostetaan tel:-linkit — numero esiintyy sivustolla kahdeksassa paikassa. */
   phone: '+358458736007',
   /** Sama numero luettavassa muodossa, esim. '+358 40 123 4567'. */
-  phoneDisplay: '045 873 6007',
+  phoneDisplay: '+358 45 873 6007',
   /** Toimiston yleissähköposti — näkyy kaikkialla paitsi yhteystietosivun
    *  herossa: lomakeosio, alatunniste, yhteystietosivun osio ja JSON-LD. */
   email: 'toimisto@adamhuhtamaki.fi',
@@ -67,7 +67,7 @@ export const TAYDENNA = {
    *  JSON-LD:n dateModified-kenttään. Muoto p.k.vvvv, esim. '2.9.2026'.
    *  Päivitä aina kun sivujen tekstejä muutetaan — hakukoneet ja
    *  tekoälyhaut painottavat tuoretta sisältöä. */
-  paivitetty: '6.9.2026',
+  paivitetty: '19.9.2026',
 
   /** Toimialue ingresseihin, esim. 'pääkaupunkiseudun'. Sama arvo täyttää
    *  molemmat lauseet:
@@ -76,33 +76,10 @@ export const TAYDENNA = {
    *     valtakunnallisesti." */
   toimialue: 'pääkaupunkiseudun',
 
-  /** /riidanratkaisu/ — UKK 3. Kuinka kauan riita-asian käsittely
-   *  käräjäoikeudessa tyypillisesti kestää, esim. '9–15 kuukautta'.
-   *  TARKISTA käräjäoikeuksien tilastoista; tätä ei saa arvata. */
-  siviiliprosessinKesto: '',
-
   /** /pakkokeinot/ — UKK 1. Vangitsemisistunnon lakisääteinen määräaika,
    *  esim. 'neljäntenä päivänä'. TARKISTA pakkokeinolaista ennen julkaisua;
    *  tätä ei saa arvata. */
   vangitsemisistunnonMaaraaika: 'neljäntenä vuorokautena',
-
-  // ==========================================================================
-  //  4. Tietosuojaseloste
-  // ==========================================================================
-
-  /** Mitä teknisiä lokitietoja palveluntarjoajasi kerää, esim.
-   *  'IP-osoite, aikaleima ja selaimen tyyppi'. */
-  tietosuojaLokitiedot: '',
-  /** Sivuston tekninen ylläpito / hosting-palveluntarjoaja, esim. 'Hostingpalvelu Oy'. */
-  tietosuojaHosting: '',
-  /** Siirretäänkö tietoja EU:n ulkopuolelle ja millä suojatoimilla. */
-  tietosuojaSiirrot: '',
-  /** Kuinka kauan yhteydenottolomakkeen tiedot säilytetään, esim. '24 kuukautta'. */
-  tietosuojaLomakeSailytys: '',
-  /** GA4:n säilytysasetus, esim. '14 kuukautta'. */
-  tietosuojaAnalytiikkaSailytys: '',
-  /** Tekniset ja organisatoriset suojatoimet lyhyesti. */
-  tietosuojaSuojatoimet: '',
 } as const;
 
 /**

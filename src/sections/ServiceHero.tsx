@@ -112,6 +112,12 @@ export default function ServiceHero({
                afford them. */
             sizes="(max-width: 900px) 0px, 100vw"
             priority
+            /* No fetchPriority here, deliberately. fetchpriority cannot be
+               made media-conditional, so marking this one high also marks it
+               high on a phone — where the 0px branch still costs 20 KB for an
+               image that is never displayed, competing with the mobile ground
+               below, which IS the LCP element. Desktop reaches its LCP without
+               the hint; mobile was the viewport measured over budget. */
             className="object-cover"
           />
         ) : (
@@ -164,6 +170,7 @@ export default function ServiceHero({
                that round trip costs the most. On desktop the 0px branch above
                means this preload resolves to the smallest variant. */
             priority
+            fetchPriority="high"
             className="object-cover object-center"
           />
         ) : (

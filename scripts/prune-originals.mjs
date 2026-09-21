@@ -15,12 +15,21 @@
  *   2. its filename appears in no exported HTML, so no page requests the
  *      original directly (an `unoptimized` image, or a plain <img>).
  *
- * The filename does appear in the page JS — a static import compiles to an
- * object carrying the original path — but that value is only ever read to
- * derive the WebP URL, never fetched. That is why the JS is not consulted here.
+ * The originals are SHRUNK IN PLACE to a 16px stand-in rather than deleted,
+ * and that distinction is load-bearing. next-image-export-optimizer's
+ * ExportedImage treats `naturalWidth === 0` on the load event as a broken
+ * image and switches its loader to the ORIGINAL path (`fallbackLoader`). That
+ * fires spuriously for every image sitting in a `display:none` container —
+ * measured on the built page, the hero's hidden ground and portrait both did
+ * it. Deleting the originals turned that into a 404 on every page view;
+ * restoring them in full would be worse still, because the fallback would then
+ * pull a multi-megabyte JPEG. A 16px file in the right format at the right
+ * path costs about a kilobyte and ends both failure modes.
+ *
  * Fonts and every other asset type are never touched.
  */
-import { readdir, readFile, rm, stat } from 'node:fs/promises';
+import { readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import sharp from 'sharp';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -69,6 +78,9 @@ const html = (
   await Promise.all((await walkHtml(out)).map((f) => readFile(f, 'utf8')))
 ).join('\n');
 
+/** Wide enough to stay a valid image, small enough to be free. */
+const STANDIN_WIDTH = 16;
+
 let removed = 0;
 let bytes = 0;
 const kept = [];
@@ -79,8 +91,20 @@ for (const name of candidates) {
     continue;
   }
   const full = path.join(mediaDir, name);
-  bytes += (await stat(full)).size;
-  await rm(full);
+  const before = (await stat(full)).size;
+  try {
+    // Read first: sharp must not be reading the file it is about to overwrite.
+    const standin = await sharp(await readFile(full))
+      .resize({ width: STANDIN_WIDTH })
+      .toBuffer();
+    await writeFile(full, standin);
+    bytes += before - standin.length;
+  } catch {
+    // Format sharp will not re-encode: the old behaviour is still better than
+    // shipping the full-size original.
+    await rm(full);
+    bytes += before;
+  }
   removed++;
 }
 
@@ -110,7 +134,7 @@ if (existsSync(optimizedDir)) {
 
 const mb = (n) => (n / 1024 / 1024).toFixed(2);
 console.log(
-  `prune-originals: removed ${removed} source image(s) (${mb(bytes)} MB) and ` +
+  `prune-originals: shrank ${removed} source image(s) (${mb(bytes)} MB saved) and ` +
     `${variantsRemoved} unreferenced WebP variant(s) (${mb(variantBytes)} MB)` +
     (kept.length ? `; kept ${kept.join(', ')}.` : '.')
 );

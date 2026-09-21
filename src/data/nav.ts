@@ -10,7 +10,7 @@ export interface NavLink {
  * its children live in NAV_MORE. Trailing slashes match trailingSlash: true.
  */
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Rikosoikeus', href: '/rikosasianajaja/' },
+  { label: 'Rikosasianajaja', href: '/rikosasianajaja/' },
   { label: 'Pakkokeinot', href: '/pakkokeinot/' },
 ];
 
@@ -37,9 +37,9 @@ export const NAV_CONTACT: NavLink = {
 /** Mobile drawer — one flat list, each row with its own description. */
 export const DRAWER_LINKS: NavLink[] = [
   {
-    label: 'Rikosoikeus',
+    label: 'Rikosasianajaja',
     href: '/rikosasianajaja/',
-    description: 'Vakavat rikokset, esitutkinta ja oikeudenkäynti',
+    description: 'Vakavat rikosasiat esitutkinnasta hovioikeuteen',
   },
   {
     label: 'Pakkokeinot',
@@ -69,7 +69,7 @@ export const DRAWER_LINKS: NavLink[] = [
  * fragment would resolve against the subpage the visitor is standing on.
  */
 export const FOOTER_SERVICES: NavLink[] = [
-  { label: 'Rikosoikeus', href: '/rikosasianajaja/' },
+  { label: 'Rikosasianajaja Helsingissä', href: '/rikosasianajaja/' },
   { label: 'Pakkokeinot', href: '/pakkokeinot/' },
   { label: 'Vahingonkorvaus', href: '/vahingonkorvaus/' },
   { label: 'Riidanratkaisu', href: '/riidanratkaisu/' },

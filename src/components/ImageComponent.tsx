@@ -16,6 +16,13 @@ interface ImageComponentProps {
   sizes?: string;
   /** Set on the LCP image only (usually one per page). */
   priority?: boolean;
+  /**
+   * `priority` alone emits the preload link but NOT fetchpriority="high" —
+   * measured on the built page, the hero image was still requested at Low
+   * priority. Set this explicitly on the LCP candidate; leave it off every
+   * other image, or they compete with it.
+   */
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
 /**
@@ -33,6 +40,7 @@ const ImageComponent = ({
   className,
   sizes,
   priority = false,
+  fetchPriority,
 }: ImageComponentProps) => (
   <ExportedImage
     src={src}
@@ -44,6 +52,7 @@ const ImageComponent = ({
     className={className}
     sizes={sizes}
     priority={priority}
+    fetchPriority={fetchPriority}
     placeholder="empty"
   />
 );

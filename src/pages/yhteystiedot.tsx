@@ -92,7 +92,7 @@ export default function Yhteystiedot() {
           ]}
           panelNote={
             <>
-              Vastaan puhelimeen itse kaikkina vuorokauden aikoina. Jos en pääse
+              Vastaan puhelimeen itse. Jos en pääse
               vastaamaan oikeudenkäynnin tai poliisikuulustelun vuoksi, soitan
               takaisin heti vapauduttuani.
             </>
