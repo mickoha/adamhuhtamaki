@@ -44,7 +44,7 @@ five front-page files predate this convention and keep their short names.
 | `yksityishenkilot.jpg` | `sections/Audiences.tsx`, card 1 | ~660×260 | `.lighten` |
 | `yritykset.jpg` | `sections/Audiences.tsx`, card 2 | ~660×260 | `.lighten` |
 | `ukk.jpg` | `sections/Faq.tsx` | full width × 620 px | scrim + bottom fade |
-| `adam-huhtamaki.jpg` | `sections/Attorney.tsx` | 380×460, pysty | `.lighten` |
+| `adam-huhtamaki.jpg` | `sections/Attorney.tsx` (koko kuva, 560px palsta, ei rajausta) + /yhteystiedot/ hero-muotokuva (4:5-rajaus CSS:llä) | alkuperäinen 10630×6566, vaaka | etusivulla `.lighten`, yhteystiedoissa tummennus 0,12 |
 | `footer.jpg` | `components/SiteFooter.tsx` | full width, koko footer | scrim, **ei** `.lighten` |
 
 ### /vahingonkorvaus/
@@ -142,7 +142,6 @@ first images to cut; the cards read fine as type-only blocks.
 
 ## Still missing
 
-- `adam-huhtamaki.jpg` — the front-page portrait, ~900×1100, dark background.
 - `rikosasianajaja-hero.jpg` — the desktop hero ground. Mobile already uses
   the `-oikeussali` frame as its ground, so only the desktop hero is short.
 

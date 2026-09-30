@@ -10,6 +10,7 @@ import { CONTACT } from '@/data/site';
 import { YHTEYS_FAQ } from '@/data/yhteystiedot';
 import heroGround from '@images/yhteystiedot-hero.jpg';
 import ukkGround from '@images/yhteystiedot-ukk.jpg';
+import portrait from '@images/adam-huhtamaki.jpg';
 import Nav from '@/components/Nav';
 import SiteFooter from '@/components/SiteFooter';
 import CookieConsent from '@/components/CookieConsent';
@@ -74,11 +75,14 @@ export default function Yhteystiedot() {
           /* Mobile has no portrait column, so the office frame carries the
              section there — as on every other service page. */
           mobileGround={heroGround}
-          /* No `portrait` prop, so ServiceHero renders a <PhotoSlot>. The
-             haastatteluvideo that used to sit here was Yle footage and was
-             removed for copyright; the video branch in ServiceHero is intact
-             and works, so a licensed clip can be dropped back in with
-             portraitVideo={...}. Until then this is a labelled empty slot. */
+          portrait={portrait}
+          /* A face, not a room: the default 0.46 tint that seats the other
+             pages' scene photographs would grey him out. The frame is already
+             shot on near-black, so a light touch is enough. */
+          portraitTint={0.12}
+          /* The original is landscape (1.62:1); covering the 4:5 box scales it
+             to 1.25 × 1.62 ≈ 2.02× the box width. */
+          portraitSizes="(max-width: 900px) 0px, (max-width: 1400px) calc(86vw - 158px), 1045px"
           portraitAlt="Muotokuva: asianajaja Adam Huhtamäki"
         />
         <EmergencyBand

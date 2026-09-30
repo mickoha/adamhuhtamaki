@@ -27,6 +27,9 @@ interface ServiceHeroProps {
   /** Content photograph beside the type, 4:5. */
   portrait?: StaticImageData;
   portraitAlt: string;
+  /** `sizes` for the portrait. The default assumes a 4:5 source; a landscape
+   *  frame covering the 4:5 box renders wider than the box and needs more. */
+  portraitSizes?: string;
   /** Mobile has no portrait column, so one frame becomes the ground there. */
   mobileGround?: StaticImageData;
   /** A looping clip in the portrait slot instead of a still. Muted and
@@ -82,6 +85,7 @@ export default function ServiceHero({
   ground,
   portrait,
   portraitAlt,
+  portraitSizes = '(max-width: 900px) 0px, (max-width: 1400px) calc(42.55vw - 78px), 517px',
   mobileGround,
   portraitVideo,
   mobileVideo = false,
@@ -320,7 +324,7 @@ export default function ServiceHero({
                  517px once the container caps. "40vw" claimed 691px and cost
                  the same jump to the 1920w variant as the cards did. The 0px
                  branch is what keeps mobile from downloading it at all. */
-                sizes="(max-width: 900px) 0px, (max-width: 1400px) calc(42.55vw - 78px), 517px"
+                sizes={portraitSizes}
                 priority
                 className="object-cover object-center"
               />
