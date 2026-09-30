@@ -6,10 +6,11 @@
 > vangitsemisvaatimuksissa, takavarikoissa ja kotietsinnöissä. Toimialue on
 > pääkaupunkiseutu ja koko Suomi.
 
-Toimistolla on rikospäivystys, joka vastaa myös iltaisin, viikonloppuisin ja
-tarvittaessa yöllä. Ensimmäinen arvio puhelimessa on maksuton, ja samalla
-puhelulla selvitetään, kattaako valtion oikeusapu, tuomioistuimen määräämä
-puolustajan tehtävä tai vakuutuksen oikeusturva palkkion. Yhteydenotto alkaa
+Adam Huhtamäki vastaa rikospäivystykseen itse 24/7, myös iltaisin ja
+viikonloppuisin. Jos hän on oikeudessa, hän soittaa takaisin heti istunnon
+päätyttyä. Ensimmäinen arvio puhelimessa on 0 €, ja samalla puhelulla
+selvitetään ennen laskutusta, kattaako valtion oikeusapu, tuomioistuimen
+määräämä puolustajan tehtävä tai vakuutuksen oikeusturva palkkion. Yhteydenotto alkaa
 soitolla päivystysnumeroon tai yhteydenottopyynnöllä etusivun lomakkeella.
 
 ## Mitä teen
@@ -31,8 +32,8 @@ soitolla päivystysnumeroon tai yhteydenottopyynnöllä etusivun lomakkeella.
 - Valtion oikeusapu kattaa palkkion kokonaan tai osittain tulojen perusteella.
 - Vakavissa rikoksissa tuomioistuin voi määrätä puolustajan valtion varoista
   tuloista riippumatta.
-- Koti- tai yritysvakuutuksen oikeusturva korvaa usein riita- ja
-  korvausasioiden kulut.
+- Koti- tai yritysvakuutuksen oikeusturva voi kattaa kuluja vakuutusehtojen
+  mukaan; soveltuvuus tarkistetaan ennen laskutusta.
 - Tuntipalkkio yksityishenkilöille: 270 €/h (338,85 €/h sis. alv 25,5 %).
 - Tuntipalkkio yrityksille: 300 €/h (376,50 €/h sis. alv 25,5 %).
 

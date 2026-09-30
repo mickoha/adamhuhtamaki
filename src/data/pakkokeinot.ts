@@ -72,6 +72,10 @@ export const PAKKOKEINOT_FAQ: FaqItem[] = [
     q: 'Voiko kotietsinnän laillisuuden riitauttaa jälkikäteen?',
     a: 'Kyllä voi. Kotietsinnän kohteeksi joutuneella on oikeus saattaa kotietsinnän laillisuus tuomioistuimen tutkittavaksi etsinnän jälkeen. Jos kotietsintä todetaan laittomaksi, sillä voi olla merkitystä esimerkiksi vahingonkorvausten kannalta.',
   },
+  {
+    q: 'Mitä tarkoittaa erityinen kotietsintä?',
+    a: 'Erityinen kotietsintä tehdään silloin, kun etsinnän kohteena on aineistoa, josta ei saa todistaa oikeudessa, esimerkiksi asianajajan ja päämiehen välistä kirjeenvaihtoa tai potilastietoja. Tuomioistuin päättää erityisestä kotietsinnästä ja määrää paikalle etsintävaltuutetun, joka valvoo, ettei suojattua aineistoa oteta haltuun. Jos aineistoa on jo viety, saatan etsinnän laillisuuden käräjäoikeuden tutkittavaksi.',
+  },
 ];
 
 /** This page's form differs from the others in both option lists. */

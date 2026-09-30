@@ -15,6 +15,10 @@ export interface FaqItem {
  */
 export const FAQ: FaqItem[] = [
   {
+    q: 'Mihin aikaan rikospäivystykseen voi soittaa?',
+    a: 'Mihin aikaan tahansa. Rikospäivystys on auki 24/7, ja vastaan puhelimeen itse myös öisin ja viikonloppuisin. Jos en pääse heti vastaamaan, soitan takaisin, kun vapaudun oikeussalista tai poliisiasemalta. Ensimmäinen arvio puhelimessa on 0 €.',
+  },
+  {
     q: 'Milloin asianajajaan kannattaa ottaa yhteyttä?',
     a: 'Yhteyttä kannattaa ottaa heti, kun saat tietää esitutkinnasta, saat kutsun poliisikuulusteluun tai läheisesi otetaan kiinni. Mitä aiemmin asianajaja on mukana, sitä paremmin oikeutesi turvataan jo ensimmäisissä kuulusteluissa.',
   },

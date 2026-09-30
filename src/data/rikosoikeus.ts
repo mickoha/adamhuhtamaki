@@ -110,7 +110,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
   },
 ];
 
-/** Six reference answers. Feeds both the accordion and this page's FAQPage. */
+/** Reference answers. Feeds both the accordion and this page's FAQPage. */
 export const RIKOS_FAQ: FaqItem[] = [
   {
     q: 'Milloin rikosasianajajaan kannattaa ottaa yhteyttä?',
@@ -123,6 +123,10 @@ export const RIKOS_FAQ: FaqItem[] = [
   {
     q: 'Voiko sama asianajaja avustaa sekä epäiltyä että uhria?',
     a: 'Sama asianajaja ei voi koskaan avustaa samassa oikeudenkäynnissä sekä rikoksesta epäiltyä että asianomistajaa. Minulla on kuitenkin vankka kokemus kummastakin roolista eri toimeksiannoissa, mikä antaa syvällisen ymmärryksen rikosprosessin dynamiikasta ja vastapuolen taktiikasta.',
+  },
+  {
+    q: 'Kuka maksaa asianomistajan avustajan?',
+    a: 'Vakavissa rikoksissa tuomioistuin voi määrätä asianomistajalle oikeudenkäyntiavustajan, jolloin palkkio maksetaan valtion varoista. Määräys tulee kyseeseen erityisesti seksuaalirikoksissa sekä henkeen, terveyteen ja vapauteen kohdistuvissa rikoksissa. Hoidan määräyksen hakemisen puolestasi. Tarkistan oikeutesi määräykseen heti ensimmäisessä puhelussa, joka on 0 €.',
   },
   {
     q: 'Kuinka kauan rikosprosessi tyypillisesti kestää?',
