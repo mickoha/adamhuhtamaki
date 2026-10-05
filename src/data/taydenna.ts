@@ -67,7 +67,7 @@ export const TAYDENNA = {
    *  JSON-LD:n dateModified-kenttään. Muoto p.k.vvvv, esim. '2.9.2026'.
    *  Päivitä aina kun sivujen tekstejä muutetaan — hakukoneet ja
    *  tekoälyhaut painottavat tuoretta sisältöä. */
-  paivitetty: '30.9.2026',
+  paivitetty: '5.10.2026',
 
   /** Toimialue ingresseihin, esim. 'pääkaupunkiseudun'. Sama arvo täyttää
    *  molemmat lauseet:

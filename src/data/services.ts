@@ -56,7 +56,7 @@ export const SPECIALITIES: Speciality[] = [
   },
   {
     title: 'Pakkokeinot',
-    body: 'Vangitsemisvaatimukset, matkustuskielto, kotietsintä sekä omaisuuden takavarikko ja vakuustakavarikko — ja niiden laillisuuden riitauttaminen.',
+    body: 'Vangitsemisvaatimukset, matkustuskielto, kotietsintä sekä omaisuuden takavarikko ja vakuustakavarikko – ja niiden laillisuuden riitauttaminen.',
     href: '/pakkokeinot/',
     linkLabel: 'Pakkokeinot ja niiden riitauttaminen',
   },

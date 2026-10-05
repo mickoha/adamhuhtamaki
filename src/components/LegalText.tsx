@@ -18,7 +18,7 @@ export const LegalPage = ({
       {title}
     </h1>
     <P>
-      Versio {version} — voimassa {effective} alkaen
+      Versio {version} – voimassa {effective} alkaen
     </P>
     {children}
   </div>

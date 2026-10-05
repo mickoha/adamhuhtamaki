@@ -37,21 +37,25 @@ export default function Hero() {
 
       <div className="relative mx-auto w-full max-w-[1400px] px-[56px] pb-[84px] pt-[150px] max-md:px-5 max-md:pb-11 max-md:pt-[90px]">
         <div className="pointer-events-none max-w-[1120px]">
-          <Eyebrow>
-            Rikosoikeuteen erikoistunut asianajotoimisto valtakunnallisesti
+          {/* The kicker is the page's only H1: it names what the page is
+              ("asianajotoimisto"), while the title carries "rikospäivystys".
+              The big line below is the slogan, so it is a <p> styled as the
+              display heading it looks like. */}
+          <Eyebrow as="h1">
+            Rikosoikeuteen erikoistunut asianajotoimisto – Helsinki ja koko
+            Suomi
           </Eyebrow>
 
-          <h1 className="mt-5 max-w-[15ch] text-[68px] leading-[1.03] tracking-[-0.025em] text-balance max-md:mt-4 max-md:text-[38px] max-md:leading-[1.06]">
+          <p className="mt-5 max-w-[15ch] text-[68px] font-medium leading-[1.03] tracking-[-0.025em] text-balance max-md:mt-4 max-md:text-[38px] max-md:leading-[1.06]">
             Puolustus alkaa ensimmäisestä puhelusta.
-          </h1>
+          </p>
 
           <p className="mt-6 max-w-[54ch] text-[19px] leading-[1.6] text-site-neutral-300 max-md:mt-4 max-md:text-[15.5px]">
-            Avustan yksityishenkilöitä ja yhtiöitä erityisesti vakavissa
-            rikosasioissa ja pakkokeinokysymyksissä. Minulla on pitkä
-            kokemus useista sadoista oikeudenkäynneistä. Toimin pääasiassa
-            pääkaupunkiseudulla, mutta hoidan toimeksiantoja tarvittaessa
-            valtakunnallisestikin. Ymmärrän, että rikosasia voi tulla vireille
-            milloin tahansa. Siksi minulle voi soittaa milloin tahansa.
+            Asianajotoimisto Adam Huhtamäki on rikosoikeuteen erikoistunut
+            asianajotoimisto Helsingissä. Avustan rikoksesta epäiltyjä ja
+            asianomistajia esitutkinnasta hovioikeuteen sekä
+            pakkokeinoasioissa, kuten vangitsemisessa, kotietsinnässä ja
+            takavarikossa. Takanani on useita satoja oikeudenkäyntejä.
           </p>
 
           <div className="pointer-events-auto mt-9 flex flex-wrap items-center gap-3 max-md:mt-7 max-md:flex-col max-md:items-stretch">

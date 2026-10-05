@@ -84,7 +84,7 @@ export const COOKIE_CATEGORIES: CookieCategory[] = [
         purpose: 'Erottaa ihmisen roskapostirobotista yhteydenottolomakkeessa.',
       },
     ],
-    note: 'reCAPTCHA latautuu vasta, kun kosket yhteydenottolomakkeeseen — ei sivun avautuessa eikä sivuilla, joita vain luet. Ilman sitä lomake olisi avoin väärinkäytölle, ja siksi se on välttämättömissä eikä valittavissa.',
+    note: 'reCAPTCHA latautuu vasta, kun kosket yhteydenottolomakkeeseen – ei sivun avautuessa eikä sivuilla, joita vain luet. Ilman sitä lomake olisi avoin väärinkäytölle, ja siksi se on välttämättömissä eikä valittavissa.',
   },
   {
     id: 'analytics',

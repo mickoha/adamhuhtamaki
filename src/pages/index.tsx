@@ -33,7 +33,7 @@ export default function Home() {
            in a hurry, and a SERP listing that can be dialled without a click
            converts the visit that never becomes a session. Read from CONTACT
            so it cannot drift from the eight tel: links on the page. */
-        description={`Rikospäivystys 24/7: vastaan puhelimeen itse, myös yöllä ja viikonloppuna. Ensimmäinen arvio puhelimessa 0 €. Helsinki ja koko Suomi. Soita ${CONTACT.phoneDisplay}.`}
+        description={`Rikospäivystys 24/7: vastaan puhelimeen itse, myös yöllä ja viikonloppuna. Ensimmäinen arvio 0 €. Helsinki ja koko Suomi. Soita ${CONTACT.phoneDisplay}.`}
         url={`${SITE_URL}/`}
       >
         <JsonLd data={organizationSchema} />
@@ -49,7 +49,7 @@ export default function Home() {
           title="Rikospäivystys 24/7 – vastaan puhelimeen itse"
           intro={[
             'Rikospäivystykseni palvelee ympäri vuorokauden, myös öisin, viikonloppuisin ja pyhinä. Vastaan päivystysnumeroon itse. Jos en pääse vastaamaan, soitan takaisin heti, kun vapaudun oikeussalista tai poliisiasemalta.',
-            'Soita heti, kun sinut tai läheisesi on otettu kiinni, sinut on kutsuttu poliisikuulusteluun tai saat tiedon esitutkinnasta. Avustan sekä rikoksesta epäiltyjä että asianomistajia. Ensimmäinen arvio puhelimessa on 0 €, ja samalla selvitän, kattaako oikeusapu, määrätty puolustaja tai vakuutuksen oikeusturva asianajokulut. Se selvitetään aina ennen laskutusta.',
+            'Soita heti, kun sinut tai läheisesi on otettu kiinni, sinut on kutsuttu poliisikuulusteluun tai saat tiedon esitutkinnasta. Avustan sekä rikoksesta epäiltyjä että asianomistajia. Ensimmäinen arvio puhelimessa on 0 €, ja selvitän samalla, kattaako oikeusapu, määrätty puolustaja tai vakuutuksen oikeusturva asianajokulut – aina ennen kuin mitään laskutetaan.',
           ]}
           panelNote="Vastaan itse, 24/7."
         />
