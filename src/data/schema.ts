@@ -89,6 +89,12 @@ export const organizationSchema: Record<string, unknown> = {
     '@type': 'Person',
     name: 'Adam Huhtamäki',
     jobTitle: 'Asianajaja',
+    // The attorney's own verified profiles: LinkedIn and the Finnish Bar
+    // Association's lawyer directory (Löydä asianajaja).
+    sameAs: [
+      'https://www.linkedin.com/in/adam-huhtam%C3%A4ki-106908139/',
+      'https://app.loydaasianajaja.fi/Asianajaja/fi/2757748888678743',
+    ],
   },
   knowsLanguage: ['fi', 'fi-FI'],
   areaServed: AREA_SERVED,
@@ -112,9 +118,11 @@ export const organizationSchema: Record<string, unknown> = {
     opens: '00:00',
     closes: '23:59',
   },
-  // Add verified profile URLs (LinkedIn, Google Business, toimialarekisteri)
-  // once you have them — sameAs is the strongest disambiguation signal there is.
-  // sameAs: ['https://www.linkedin.com/company/…'],
+  // Verified third-party profiles of the firm: sameAs is the strongest signal
+  // that ties this site to the same entity elsewhere on the web.
+  sameAs: [
+    'https://www.finder.fi/Asianajotoimisto/Asianajotoimisto+Adam+Huhtam%C3%A4ki+Oy/Helsinki/yhteystiedot/4334584',
+  ],
 };
 
 /** WebSite node — ties the domain to the organization above. */
