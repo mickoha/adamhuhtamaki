@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-c916e4a5-f3f6-4a97-928c-b65ba2c25ab9/styles.css">
+<script src="_ds/nocturne-c916e4a5-f3f6-4a97-928c-b65ba2c25ab9/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+  a { color: var(--color-accent); text-decoration: none; }
+  a:hover { color: var(--color-accent-300); }
+  @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(145,132,217,0.45); } 70% { box-shadow: 0 0 0 18px rgba(145,132,217,0); } 100% { box-shadow: 0 0 0 0 rgba(145,132,217,0); } }
+  @keyframes menuIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  details[data-menu] > summary svg { transition: transform 180ms ease; }
+  details[data-menu][open] > summary svg { transform: rotate(180deg); }
+  details[data-menu][open] > summary { color: var(--color-accent); }
+  details[data-menu] > div { animation: menuIn 140ms ease-out both; }
+</style>
+</helmet>
+
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh">
+
+  <header style="position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 32px; padding: 18px 56px; background: {{ headerBg }}; backdrop-filter: {{ headerBlur }}; border-bottom: {{ headerBorder }}; transition: background 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease">
+    <a href="Etusivu.dc.html" style="display: flex; flex: none; align-items: center; gap: 14px; color: var(--color-text); margin-right: auto">
+      <svg width="30" height="30" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <path d="M4 21 L18 25 C17 16 25 9 34 11 C43 13 47 22 44 30 C51 34 57 42 61 53 C52 48 46 45 42 45 C37 51 29 53 23 49 C15 44 12 33 15 27 Z" fill="var(--color-text)"></path>
+        <circle cx="35" cy="21" r="2" fill="var(--color-bg)"></circle>
+        <path d="M30 50 L28 58 M37 50 L39 57" stroke="var(--color-text)" stroke-width="2.4" stroke-linecap="round"></path>
+      </svg>
+      <span style="display: flex; flex-direction: column; line-height: 1.15">
+        <span style="font-family: var(--font-heading); font-weight: 500; font-size: 17px; letter-spacing: 0.06em; white-space: nowrap">ADAM HUHTAMÄKI</span>
+        <span style="font-size: 10.5px; letter-spacing: 0.22em; white-space: nowrap; color: var(--color-neutral-500)">ASIANAJOTOIMISTO</span>
+      </span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 24px; font-size: 14px; white-space: nowrap">
+      <a href="Rikosoikeus.dc.html" style="color: var(--color-neutral-300)" style-hover="color: var(--color-accent)">Rikosoikeus</a>
+      <a href="Pakkokeinot.dc.html" style="color: var(--color-neutral-300)" style-hover="color: var(--color-accent)">Pakkokeinot</a>
+      <details data-menu style="position: relative">
+        <summary style="cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; color: var(--color-neutral-300)" style-hover="color: var(--color-accent)">Muut palvelut<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+        <div style="position: absolute; top: 34px; left: -16px; z-index: 50; width: 330px; display: flex; flex-direction: column; gap: 2px; padding: 12px; border: 1px solid var(--color-divider); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-lg)">
+          <a href="Palvelut.dc.html#vahingonkorvaus" style="display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: var(--radius-sm); color: var(--color-neutral-100)" style-hover="background: var(--color-accent-900)">
+            <span style="font-size: 14.5px">Vahingonkorvaus</span>
+            <span style="font-size: 12px; color: var(--color-neutral-500)">Korvausvaatimukset ja niiden torjunta</span>
+          </a>
+          <a href="Palvelut.dc.html#riidanratkaisu" style="display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: var(--radius-sm); color: var(--color-neutral-100)" style-hover="background: var(--color-accent-900)">
+            <span style="font-size: 14.5px">Riidanratkaisu ja oikeudenkäynnit</span>
+            <span style="font-size: 12px; color: var(--color-neutral-500)">Käräjä- ja hovioikeusprosessit, sovinnot</span>
+          </a>
+        </div>
+      </details>
+      <a href="#yhteys" style="color: var(--color-neutral-300)" style-hover="color: var(--color-accent)">Yhteystiedot</a>
+    </nav>
+    <a class="btn btn-primary" href="tel:+358400000000" style="flex: none; white-space: nowrap; font-size: 13.5px; padding: 9px 16px">Rikospäivystys 24/7</a>
+  </header>
+
+  <section style="position: relative; margin-top: -76px; min-height: 736px; display: flex; align-items: flex-end; overflow: hidden">
+    <div style="position: absolute; inset: 0">
+      <image-slot id="hero-bg" shape="rect" fit="cover" placeholder="Pudota kuva"></image-slot>
+    </div>
+    <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, rgba(22,24,38,0.94) 0%, rgba(22,24,38,0.86) 42%, rgba(22,24,38,0.35) 100%)"></div>
+    <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, var(--color-bg) 0%, rgba(22,24,38,0) 45%)"></div>
+    <div style="position: relative; padding: 150px 56px 84px; max-width: 1120px; pointer-events: none">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 26px">
+        <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Rikosoikeuteen erikoistunut asianajotoimisto</span>
+      </div>
+      <h1 style="margin: 0; font-size: 68px; line-height: 1.03; letter-spacing: -0.025em; font-weight: 500; max-width: 15ch; text-wrap: balance">Puolustus alkaa ensimmäisestä puhelusta.</h1>
+      <p style="margin: 30px 0 0; font-size: 19px; line-height: 1.6; max-width: 54ch; color: var(--color-neutral-300); text-wrap: pretty">Avustan yksityishenkilöitä ja yhtiöitä rikosasioissa ja vakavissa pakkokeinokysymyksissä. Kokemus useista sadoista oikeudenkäynneistä ja olemme tavoitettavissa myös iltaisin ja viikonloppuisin.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; pointer-events: auto">
+        <a class="btn btn-primary" href="tel:+358400000000" style="font-size: 15px; padding: 13px 22px">Soita päivystykseen 24/7</a>
+        <a class="btn btn-secondary" href="#yhteys" style="font-size: 15px; padding: 13px 22px">Jätä yhteydenottopyyntö</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="position: relative; background: var(--color-section); background-image: radial-gradient(120% 140% at 12% 0%, var(--color-section-glow) 0%, var(--color-section) 58%); padding: 64px 56px; border-top: 1px solid rgba(233,233,237,0.08); border-bottom: 1px solid rgba(233,233,237,0.08)">
+    <div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; align-items: center; max-width: 1400px">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px">
+          <span style="width: 9px; height: 9px; border-radius: 50%; background: var(--color-accent-300); animation: pulseRing 2.4s ease-out infinite"></span>
+          <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent-300)">Rikospäivystys · päivystys auki</span>
+        </div>
+        <h2 style="margin: 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; max-width: 22ch">Kiinniotto ei odota virka-aikaa. Eikä puolustus.</h2>
+        <p style="margin: 22px 0 0; font-size: 17px; line-height: 1.65; max-width: 58ch; color: var(--color-accent-200)">Kuulustelu voidaan aloittaa tunneissa. Ensimmäiset lausumat kantavat läpi koko prosessin. Soita heti, kun sinä tai läheisesi on otettu kiinni, kutsuttu kuulusteluun tai saanut tiedon esitutkinnasta. Vastaan tarvittaessa myös yöllä.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px; padding: 30px 32px; border: 1px solid rgba(233,233,237,0.16); border-radius: var(--radius-lg); background: rgba(22,24,38,0.4)">
+        <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-neutral-400)">Päivystysnumero</span>
+        <a href="tel:+358400000000" style="font-family: var(--font-heading); font-size: 36px; letter-spacing: -0.01em; color: var(--color-text)" style-hover="color: var(--color-accent-300)">+358 40 000 0000</a>
+        <div style="height: 1px; background: linear-gradient(to right, transparent, rgba(233,233,237,0.2) 40px, rgba(233,233,237,0.2) calc(100% - 40px), transparent)"></div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--color-neutral-300)">Vastaan itse. Jos en pääse puhelimeen, soitan takaisin heti kun vapaudun oikeussalista.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 104px 56px 96px; max-width: 1400px">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
+      <div style="border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm); overflow: hidden">
+        <div class="lighten">
+          <image-slot id="asiakas-yksityinen" shape="rect" fit="cover" style="width: 100%; height: 260px" placeholder="Pudota kuva"></image-slot>
+        </div>
+        <div style="padding: 34px 36px 40px">
+        <span class="tag tag-outline">Yksityishenkilöille</span>
+        <h3 style="margin: 22px 0 0; font-size: 26px; line-height: 1.15">Kun sinua epäillään rikoksesta</h3>
+        <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.65; color: var(--color-neutral-300)">Epäillyn ja asianomistajan avustaminen esitutkinnassa, vangitsemisasioissa ja oikeudenkäynnissä. Selvitän aina, voiko valtion oikeusapu tai vakuutuksesi oikeusturva kattaa kulut.</p>
+        </div>
+      </div>
+      <div style="border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm); overflow: hidden">
+        <div class="lighten">
+          <image-slot id="asiakas-yhtio" shape="rect" fit="cover" style="width: 100%; height: 260px" placeholder="Pudota kuva"></image-slot>
+        </div>
+        <div style="padding: 34px 36px 40px">
+        <span class="tag tag-outline">Yhtiöille</span>
+        <h3 style="margin: 22px 0 0; font-size: 26px; line-height: 1.15">Kun tutkinta koskee yritystäsi</h3>
+        <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.65; color: var(--color-neutral-300)">Talousrikosepäilyt, kotietsinnät ja takavarikot yrityksen tiloissa, johdon ja työntekijöiden asema tutkinnassa sekä liiketoiminnan jatkuvuus prosessin aikana.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="position: relative; isolation: isolate">
+    <div style="position: absolute; inset: -40px 0 0; pointer-events: none; z-index: -1; overflow: hidden; opacity: 0.65">
+      <div style="position: absolute; top: 6%; left: -14%; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(145,132,217,0.16) 0%, rgba(145,132,217,0) 68%)"></div>
+      <div style="position: absolute; bottom: 4%; right: -10%; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(circle, rgba(53,59,128,0.28) 0%, rgba(53,59,128,0) 70%)"></div>
+      <svg viewBox="0 0 1400 1200" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%">
+        <defs>
+          <linearGradient id="ah-line" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="rgba(145,132,217,0)"></stop>
+            <stop offset="45%" stop-color="rgba(145,132,217,0.34)"></stop>
+            <stop offset="100%" stop-color="rgba(145,132,217,0)"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M1470 70 C 1160 78 920 120 700 250 C 470 385 300 640 -340 1000" fill="none" stroke="url(#ah-line)" stroke-width="1.25"></path>
+        <path d="M1470 150 C 1140 158 880 205 640 350 C 420 485 260 760 -340 1120" fill="none" stroke="url(#ah-line)" stroke-width="1"></path>
+        <path d="M1470 20 C 1190 26 990 55 790 165 C 560 290 380 540 -340 880" fill="none" stroke="url(#ah-line)" stroke-width="0.75"></path>
+      </svg>
+    </div>
+  <section style="padding: 0 56px 100px; max-width: 1400px">
+    <span style="display: block; text-align: right; font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Erikoisalat</span>
+    <h2 style="margin: 20px 0 0 auto; text-align: right; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em; max-width: 24ch">Painopiste on rikosasioissa ja pakkokeinoissa.</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1px; margin-top: 52px; background: var(--color-divider); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider)">
+      <a href="Rikosoikeus.dc.html" style="display: flex; flex-direction: column; gap: 16px; padding: 44px 40px 40px; background: var(--color-bg); color: var(--color-text)" style-hover="background: var(--color-neutral-900)">
+        <h3 style="margin: 0; font-size: 34px; line-height: 1.08; letter-spacing: -0.02em">Rikosoikeus</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; max-width: 44ch; color: var(--color-neutral-300)">Vakavat rikokset: väkivalta- ja henkirikokset, huume-, talous- ja seksuaalirikokset. Avustaminen esitutkinnasta hovioikeuteen, myös asianomistajan puolella.</p>
+        <span style="margin-top: 8px; font-size: 14px; color: var(--color-accent)">Rikosoikeus →</span>
+      </a>
+      <a href="Pakkokeinot.dc.html" style="display: flex; flex-direction: column; gap: 16px; padding: 44px 40px 40px; background: var(--color-bg); color: var(--color-text)" style-hover="background: var(--color-neutral-900)">
+        <h3 style="margin: 0; font-size: 34px; line-height: 1.08; letter-spacing: -0.02em">Pakkokeinot</h3>
+        <p style="margin: 0; font-size: 16px; line-height: 1.65; max-width: 44ch; color: var(--color-neutral-300)">Vangitsemisvaatimukset, matkustuskielto, takavarikko ja vakuustakavarikko, kotietsintä sekä salaiset pakkokeinot ja niiden laillisuuden riitauttaminen.</p>
+        <span style="margin-top: 8px; font-size: 14px; color: var(--color-accent)">Pakkokeinot →</span>
+      </a>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; margin-top: 34px">
+      <span style="font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-neutral-500)">Lisäksi</span>
+      <a href="Palvelut.dc.html#vahingonkorvaus" style="font-size: 17px; color: var(--color-neutral-200)" style-hover="color: var(--color-accent)">Vahingonkorvaus</a>
+      <a href="Palvelut.dc.html#riidanratkaisu" style="font-size: 17px; color: var(--color-neutral-200)" style-hover="color: var(--color-accent)">Riidanratkaisu ja oikeudenkäynnit</a>
+    </div>
+  </section>
+
+  <sc-if value="{{ naytaPalkkiot }}" hint-placeholder-val="{{ true }}">
+  <section id="palkkiot" style="padding: 0 56px 100px; max-width: 1400px; scroll-margin-top: 90px">
+    <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Hinnasto</span>
+    <h2 style="margin: 20px 0 0; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em; max-width: 26ch">Usein palkkion maksaa joku muu kuin sinä.</h2>
+    <p style="margin: 22px 0 0; font-size: 18px; line-height: 1.65; max-width: 62ch; color: var(--color-neutral-300)">Rikosasiassa kulut katetaan hyvin usein valtion varoista tai vakuutuksesta. Selvitän tämän aina ennen laskutusta, joten kysyminen ei maksa mitään.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 44px">
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 32px 30px 34px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm)">
+        <span class="tag tag-accent" style="align-self: flex-start">Valtion varoista</span>
+        <h4 style="margin: 6px 0 0; font-size: 23px; line-height: 1.15">Oikeusapu</h4>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--color-neutral-300)">Valtion oikeusapu kattaa palkkion kokonaan tai osittain tulojesi perusteella. Selvitän oikeuden oikeusapuun ennen laskutusta.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 32px 30px 34px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm)">
+        <span class="tag tag-accent" style="align-self: flex-start">Tuloista riippumatta</span>
+        <h4 style="margin: 6px 0 0; font-size: 23px; line-height: 1.15">Puolustaja</h4>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--color-neutral-300)">Vakavissa rikoksissa tuomioistuin voi määrätä minut puolustajaksesi valtion varoista riippumatta tuloistasi.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 32px 30px 34px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm)">
+        <span class="tag tag-accent" style="align-self: flex-start">Vakuutus korvaa</span>
+        <h4 style="margin: 6px 0 0; font-size: 23px; line-height: 1.15">Oikeusturva</h4>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: var(--color-neutral-300)">Kotivakuutuksen tai yrityksen vakuutuksen oikeusturva korvaa usein riita- ja korvausasioiden kulut.</p>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px 64px; margin-top: 56px; align-items: start">
+      <div>
+        <span style="font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-neutral-500)">Jos maksat itse</span>
+        <div style="margin-top: 18px; display: flex; flex-direction: column">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 16px 0; border-top: 1px solid var(--color-divider)">
+            <span style="font-size: 15px; color: var(--color-neutral-200)">Ensimmäinen arvio puhelimessa</span>
+            <span style="font-family: var(--font-heading); font-size: 17px; white-space: nowrap; color: var(--color-accent-300)">0 €</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 16px 0; border-top: 1px solid var(--color-divider)">
+            <span style="font-size: 15px; color: var(--color-neutral-200)">Tuntipalkkio</span>
+            <span style="font-family: var(--font-heading); font-size: 17px; white-space: nowrap">000 €/h</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 16px 0; border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider)">
+            <span style="font-size: 15px; color: var(--color-neutral-200)">Päivystysaika (klo 18–08, viikonloput)</span>
+            <span style="font-family: var(--font-heading); font-size: 17px; white-space: nowrap">000 €/h</span>
+          </div>
+          <span style="margin-top: 14px; font-size: 12.5px; color: var(--color-neutral-500)">Hinnat sisältävät arvonlisäveron 25,5 %. Matkakulut ja viranomaismaksut laskutetaan erikseen.</span>
+        </div>
+      </div>
+      <div style="align-self: center">
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: var(--color-neutral-300)">Et tarvitse valmista käsitystä siitä, mikä näistä koskee sinua. Soita, niin kerron heti puhelimessa, kuka kulut todennäköisesti maksaa.</p>
+        <a class="btn btn-primary" href="tel:+358400000000" style="margin-top: 22px; font-size: 15px; padding: 13px 22px">Soita ja kysy</a>
+      </div>
+    </div>
+  </section>
+
+  </sc-if>
+  </div>
+
+  <section style="padding: 0 56px 104px; max-width: 1400px">
+    <div style="display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 64px; align-items: start">
+      <div class="lighten" style="border-radius: var(--radius-lg); overflow: hidden">
+        <image-slot id="adam-portrait" shape="rounded" radius="14" fit="cover" style="width: 100%; height: 460px" placeholder="Pudota muotokuva (tumma tausta)"></image-slot>
+      </div>
+      <div>
+        <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Asianajaja</span>
+        <h2 style="margin: 20px 0 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em">Adam Huhtamäki</h2>
+        <p style="margin: 24px 0 0; font-size: 17px; line-height: 1.7; max-width: 62ch; color: var(--color-neutral-200)">Rikosoikeus on työni pääala. Avustan päämiehiä rikosasioissa ja vakavissa pakkokeinokysymyksissä, sekä epäillyn että asianomistajan puolella. Oikeudenkäyntejä on takana useita satoja käräjä- ja hovioikeuksissa.</p>
+        <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.7; max-width: 62ch; color: var(--color-neutral-300)">Hoidan toimeksiannot itse. Tiedät koko ajan, kuka asiaasi ajaa ja missä vaiheessa se on — ja päivystysnumeroon vastaa asianajaja, ei vastaaja.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px">
+          <span class="tag tag-neutral">Rikosoikeus</span>
+          <span class="tag tag-neutral">Pakkokeinot</span>
+          <span class="tag tag-neutral">Vahingonkorvaus</span>
+          <span class="tag tag-neutral">Riidanratkaisu</span>
+          <span class="tag tag-neutral">Suomen Asianajajaliitto</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ naytaUkk }}" hint-placeholder-val="{{ true }}">
+  <section style="position: relative; padding: 104px 56px 112px; margin-bottom: 0; overflow: hidden; border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider)">
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 620px">
+      <image-slot id="ukk-photo" shape="rect" fit="cover" placeholder="Pudota tumma taustakuva"></image-slot>
+    </div>
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 620px; pointer-events: none; background: linear-gradient(85deg, rgba(22,24,38,0.96) 0%, rgba(22,24,38,0.9) 55%, rgba(22,24,38,0.62) 100%)"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 380px; height: 240px; pointer-events: none; background: linear-gradient(to bottom, rgba(22,24,38,0) 0%, var(--color-bg) 100%)"></div>
+    <div style="position: relative; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 72px; max-width: 1400px; align-items: start">
+    <div>
+    <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Usein kysyttyä</span>
+    <h2 style="margin: 20px 0 0; font-size: 38px; line-height: 1.12; letter-spacing: -0.02em; max-width: 18ch">Neljä kysymystä, jotka tulevat aina ensin.</h2>
+    <p style="margin: 22px 0 0; font-size: 16px; line-height: 1.7; max-width: 40ch; color: var(--color-neutral-300)">Jos oma tilanteesi ei ole listalla, soita. Vastaan nopeammin puhelimessa kuin verkkolomakkeella.</p>
+    </div>
+    <div style="display: flex; flex-direction: column">
+      <details style="padding: 22px 0; border-top: 1px solid var(--color-divider)">
+        <summary style="cursor: pointer; font-family: var(--font-heading); font-size: 19px; list-style: none">Poliisi kutsui kuulusteluun. Tarvitsenko avustajan?</summary>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--color-neutral-300)">Kyllä. Kuulustelussa annetut lausumat kirjataan ja niihin vedotaan koko prosessin ajan. Sinulla on oikeus avustajaan jo ensimmäisessä kuulustelussa, ja se oikeus kannattaa käyttää.</p>
+      </details>
+      <details style="padding: 22px 0; border-top: 1px solid var(--color-divider)">
+        <summary style="cursor: pointer; font-family: var(--font-heading); font-size: 19px; list-style: none">Läheiseni on otettu kiinni. Mitä teen nyt?</summary>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--color-neutral-300)">Soita päivystysnumeroon. Kiinni otetulla on oikeus valita avustajansa, ja vangitsemisvaatimus käsitellään yleensä muutamassa vuorokaudessa. Nopealla toiminnalla on merkitystä.</p>
+      </details>
+      <details style="padding: 22px 0; border-top: 1px solid var(--color-divider)">
+        <summary style="cursor: pointer; font-family: var(--font-heading); font-size: 19px; list-style: none">Voinko vaihtaa avustajaa kesken prosessin?</summary>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--color-neutral-300)">Voit. Avustajan vaihtaminen on mahdollista prosessin kaikissa vaiheissa. Otan toimeksiantoja myös kesken esitutkinnan tai ennen hovioikeuskäsittelyä.</p>
+      </details>
+      <details style="padding: 22px 0; border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider)">
+        <summary style="cursor: pointer; font-family: var(--font-heading); font-size: 19px; list-style: none">Onko keskustelu luottamuksellista?</summary>
+        <p style="margin: 14px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--color-neutral-300)">On. Asianajajaa sitoo salassapitovelvollisuus myös silloin, kun toimeksianto ei synny. Älä kuitenkaan lähetä arkaluonteisia yksityiskohtia verkkolomakkeella — kerro ne puhelimessa.</p>
+      </details>
+    </div>
+    </div>
+  </section>
+
+  </sc-if>
+
+  <section id="yhteys" style="padding: 84px 56px 96px; background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-neutral-900) 100%); border-top: 1px solid var(--color-divider); scroll-margin-top: 74px">
+    <div style="display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 72px; max-width: 1400px">
+      <div>
+        <span style="font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-accent)">Yhteystiedot</span>
+        <h2 style="margin: 20px 0 0; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em">Ota yhteyttä.</h2>
+        <div style="margin-top: 36px; display: flex; flex-direction: column; gap: 26px">
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-500)">Päivystys 24/7</span>
+            <a href="tel:+358400000000" style="font-family: var(--font-heading); font-size: 27px; color: var(--color-text)" style-hover="color: var(--color-accent-300)">+358 40 000 0000</a>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-500)">Sähköposti</span>
+            <a href="mailto:adam@huhtamaki.fi" style="font-size: 17px">adam@huhtamaki.fi</a>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-neutral-500)">Toimisto</span>
+            <span style="font-size: 17px; line-height: 1.5; color: var(--color-neutral-200)">Osoite 1, 00100 Helsinki<br>Tapaamiset myös etänä ja vankilassa</span>
+          </div>
+        </div>
+      </div>
+      <form style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 38px 36px; border-radius: var(--radius-lg); background: var(--color-bg); box-shadow: var(--shadow-md)">
+        <div class="field">
+          <label for="nimi">Nimi</label>
+          <input class="input" id="nimi" type="text" placeholder="Etu- ja sukunimi">
+        </div>
+        <div class="field">
+          <label for="puh">Puhelin</label>
+          <input class="input" id="puh" type="tel" placeholder="+358">
+        </div>
+        <div class="field" style="grid-column: span 2">
+          <label for="email">Sähköposti</label>
+          <input class="input" id="email" type="email" placeholder="nimi@esimerkki.fi">
+        </div>
+        <div class="field" style="grid-column: span 2">
+          <label for="laatu">Asian laatu</label>
+          <select class="input" id="laatu">
+            <option>Esitutkinta</option>
+            <option>Syyte</option>
+            <option>Oikeudenkäynti</option>
+            <option>Pakkokeino</option>
+            <option>Muu</option>
+          </select>
+        </div>
+        <div class="field" style="grid-column: span 2">
+          <label>Kiireellisyys</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 4px">
+            <label class="radio"><input type="radio" name="kiire" checked><span class="dot"></span>Ei kiireellinen</label>
+            <label class="radio"><input type="radio" name="kiire"><span class="dot"></span>Kuulustelu tulossa</label>
+            <label class="radio"><input type="radio" name="kiire"><span class="dot"></span>Kiinni otettu nyt</label>
+          </div>
+        </div>
+        <div class="field" style="grid-column: span 2">
+          <label for="kuvaus">Lyhyt kuvaus</label>
+          <textarea class="input" id="kuvaus" placeholder="Mistä on kysymys ja missä vaiheessa asia on"></textarea>
+        </div>
+        <p style="grid-column: span 2; margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--color-neutral-500)">Älä kirjoita lomakkeelle salassa pidettävää tai arkaluonteista tietoa. Kiireellisissä asioissa soita päivystysnumeroon.</p>
+        <button class="btn btn-primary" type="button" style="grid-column: span 2; padding: 13px 22px; font-size: 15px">Lähetä yhteydenottopyyntö</button>
+      </form>
+    </div>
+  </section>
+
+  <footer style="padding: 44px 56px; background: var(--color-neutral-900); border-top: 1px solid var(--color-divider); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; font-size: 13px; color: var(--color-neutral-500)">
+    <span>Asianajotoimisto Adam Huhtamäki · Y-tunnus 0000000-0</span>
+    <div style="display: flex; gap: 24px">
+      <a href="Palvelut.dc.html" style="color: var(--color-neutral-400)">Muut palvelut</a>
+      <a href="#yhteys" style="color: var(--color-neutral-400)">Yhteystiedot</a>
+      <a href="#" style="color: var(--color-neutral-400)">Tietosuoja</a>
+    </div>
+  </footer>
+
+  <sc-if value="{{ kelluvaPainike }}" hint-placeholder-val="{{ true }}">
+  <a href="tel:+358400000000" style="position: fixed; right: 26px; bottom: 26px; z-index: 60; display: flex; align-items: center; gap: 12px; padding: 15px 22px 15px 18px; border-radius: 999px; background: var(--color-accent-900); border: 1px solid var(--color-accent); color: var(--color-accent-100); font-size: 15px; box-shadow: 0 12px 34px rgba(0,0,0,0.6)" style-hover="background: var(--color-accent-800)">
+    <span style="position: relative; display: flex; width: 10px; height: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-300); animation: pulseRing 2.4s ease-out infinite"></span></span>
+    <span style="display: flex; flex-direction: column; line-height: 1.25">
+      <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent-400)">Rikospäivystys</span>
+      <span style="font-family: var(--font-heading)">Soita 24/7</span>
+    </span>
+  </a>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;kelluvaPainike&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Rikospäivystys&quot;},&quot;naytaUkk&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Osiot&quot;},&quot;naytaPalkkiot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Osiot&quot;}}">class Component extends DCLogic {
+  state = { scrolled: false };
+  componentDidMount() {
+    this._onScroll = () => {
+      const y = (window.scrollY || document.documentElement.scrollTop || 0);
+      const s = y > 24;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+  renderVals() {
+    const s = this.state.scrolled;
+    return {
+      headerBg: s ? 'rgba(22,24,38,0.86)' : 'rgba(22,24,38,0.28)',
+      headerBlur: s ? 'blur(14px)' : 'blur(4px)',
+      headerBorder: s ? '1px solid var(--color-divider)' : '1px solid transparent',
+      kelluvaPainike: this.props.kelluvaPainike ?? true,
+      naytaUkk: this.props.naytaUkk ?? true,
+      naytaPalkkiot: this.props.naytaPalkkiot ?? true,
+    };
+  }
+}</script>
+</body>
+</html>
